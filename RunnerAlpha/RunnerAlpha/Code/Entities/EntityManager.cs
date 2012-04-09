@@ -40,51 +40,44 @@ namespace RunnerAlpha.Code.Entities
 
         private void CollisionCheck()
         {
-            if (player.Value.position.X < Runner.WIDTH && player.Value.position.X > 0.0f &&
-                player.Value.position.Y < Runner.HEIGHT && player.Value.position.Y > 0.0f)
+            PlayerOutOfBoundsCheck();
+
+            Rectangle p = player.Value.rect;
+            player.Value.falling = false;
+            for (int i = 1; i < entities.Count; i++)
             {
-                Rectangle p = player.Value.rect;
-                player.Value.falling = false;
-                for (int i = 1; i < entities.Count; i++)
+                if (!(p.Intersects(entities.ElementAt(i).rect)))
                 {
-                    if (!(p.Intersects(entities.ElementAt(i).rect)))
-                    {
-                        player.Value.falling = true;
-                    }
-                    else if (p.Intersects(entities.ElementAt(i).rect))
-                    {
-                        player.Value.position.Y = entities.ElementAt(i).rect.Y - p.Height / 2;
-                        player.Value.falling = false;
-                        return;
-                    }
+                    player.Value.falling = true;
+                }
+                else if (p.Intersects(entities.ElementAt(i).rect))
+                {
+                    player.Value.position.Y = entities.ElementAt(i).rect.Y - p.Height / 2;
+                    player.Value.falling = false;
+                    return;
                 }
             }
-            else
-            {
-                PlayerOutOfBounds();
-                //player.Value.position = new Vector2(100, 100);
-            }
+            
         }
 
-        private void PlayerOutOfBounds()
+        private void PlayerOutOfBoundsCheck()
         {
             if (player.Value.position.X + player.Value.rect.Width / 2 > Runner.WIDTH)
             {
                 player.Value.position.X = Runner.WIDTH - player.Value.rect.Width / 2;
             }
-            else if (player.Value.position.X - player.Value.rect.Width / 2 < 0f)
+            if (player.Value.position.X - player.Value.rect.Width / 2 < 0f)
             {
                 player.Value.position.X = player.Value.rect.Width / 2;
             }
-
             if (player.Value.position.Y + player.Value.rect.Height / 2 > Runner.HEIGHT)
             {
                 player.Value.position.X = 100f;
                 player.Value.position.Y = 100f;
             }
-            else if (player.Value.position.Y - player.Value.rect.Height / 2 < 0f)
+            if (player.Value.position.Y - player.Value.rect.Height / 2 < -100f)
             {
-                player.Value.position.Y = 0f;
+                player.Value.position.Y = -100f;
             }
         }
     }
