@@ -52,7 +52,7 @@ namespace RunnerAlpha.Code.Entities
                 position.X += gameTime.ElapsedGameTime.Milliseconds * 0.7f;
             }
             if (input.Up){
-                position.Y -= 20;
+                position.Y -= 10;
             }
         }
     }

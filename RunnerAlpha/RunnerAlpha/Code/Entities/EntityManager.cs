@@ -14,10 +14,11 @@ namespace RunnerAlpha.Code.Entities
 
         public EntityManager(Runner game, SpriteBatch spriteBatch)
         {
-            player = entities.AddLast(new Player(game, spriteBatch, "Guy", new Vector2(100f)));
-            entities.AddLast(new Platform(game, spriteBatch, "platform", new Vector2(90f, 1200 * 0.75f)));
-            entities.AddLast(new Platform(game, spriteBatch, "plattform2", new Vector2(800f, 1200 * 0.6f)));
-            entities.AddLast(new Platform(game, spriteBatch, "plattform2", new Vector2(1850f, 1200 * 0.75f)));
+            player = entities.AddLast(new Player(game, spriteBatch, "running", new Vector2(100f)));
+            entities.AddLast(new Platform(game, spriteBatch, "Start", new Vector2(90f, 1080)));
+            entities.AddLast(new Platform(game, spriteBatch, "buildingStupranna", new Vector2(800f, 1000)));
+            entities.AddLast(new Platform(game, spriteBatch, "3", new Vector2(1300f, 1150)));
+            entities.AddLast(new Platform(game, spriteBatch, "buildingDoor", new Vector2(1870f, 1100)));
         }
 
         public void Update(GameTime gameTime)

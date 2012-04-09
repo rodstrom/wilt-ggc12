@@ -49,20 +49,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="platform.png">
-      <Name>platform</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Guy.png">
-      <Name>Guy</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Background.png">
       <Name>Background</Name>
       <Importer>TextureImporter</Importer>
@@ -70,15 +56,32 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="plattform2.png">
-      <Name>plattform2</Name>
+    <Compile Include="buildingStupranna.png">
+      <Name>buildingStupranna</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="buildingDoor.png">
+      <Name>buildingDoor</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Start.png">
+      <Name>Start</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Platform3.png">
-      <Name>Platform3</Name>
+    <Compile Include="running.png">
+      <Name>running</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="3.png">
+      <Name>3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

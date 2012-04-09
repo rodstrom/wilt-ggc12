@@ -22,10 +22,10 @@ namespace RunnerAlpha.Code.Graphics
         public void Draw(Vector2 position, Rectangle rect, Color color, float rotation, Vector2 origin, float scale, SpriteEffects spriteEffects, float layer, Effect effect)
         {
             spriteBatch.End();
-            spriteBatch.Begin(0, BlendState.Opaque, null, null, null, effect, Resolution.getTransformationMatrix());
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, Resolution.getTransformationMatrix());
             spriteBatch.Draw(texture, position, rect, color, rotation, origin, scale, spriteEffects, layer);
             spriteBatch.End();
-            spriteBatch.Begin(0, BlendState.Opaque, null, null, null, null, Resolution.getTransformationMatrix());
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, Resolution.getTransformationMatrix());
         }
 
         public Vector2 Dimension
