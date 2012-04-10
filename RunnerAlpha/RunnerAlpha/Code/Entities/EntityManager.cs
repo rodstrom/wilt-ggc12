@@ -9,9 +9,9 @@ namespace RunnerAlpha.Code.Entities
 {
     class EntityManager
     {
+        public Player player;
         LinkedList<Platform> platforms = new LinkedList<Platform>();
-
-        Player player;
+        Rectangle goal;
 
         public EntityManager(Runner game, SpriteBatch spriteBatch)
         {
@@ -21,6 +21,14 @@ namespace RunnerAlpha.Code.Entities
             platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingStupranna", new Vector2(800f, 1000)));
             platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\3", new Vector2(1300f, 1150)));
             platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingDoor", new Vector2(1870f, 1100)));
+
+            goal = new Rectangle(1850, 900, 200, 200);
+        }
+
+        public void Terminate()
+        {
+            player = null;
+            platforms.Clear();
         }
 
         public void Update(GameTime gameTime)
@@ -64,7 +72,11 @@ namespace RunnerAlpha.Code.Entities
                     return;
                 }
             }
-            
+
+            if (p.Intersects(goal))
+            {
+                player.win = true;
+            }
         }
 
         private void PlayerOutOfBoundsCheck()
@@ -79,8 +91,7 @@ namespace RunnerAlpha.Code.Entities
             }
             if (player.position.Y + player.rect.Height / 2 > Runner.HEIGHT)
             {
-                player.position.X = 100f;
-                player.position.Y = 100f;
+                player.lose = true;
             }
             if (player.position.Y - player.rect.Height / 2 < -100f)
             {

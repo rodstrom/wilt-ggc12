@@ -12,7 +12,6 @@ namespace RunnerAlpha.Code.States
 
         List<State> states;
         State currentState;
-        int currentStateNumber = 0;
 
         public StateManager(Runner game)
         {
@@ -27,30 +26,38 @@ namespace RunnerAlpha.Code.States
 
         public State SelectState(String name)
         {
-            for (int i = 0; i < states.Count; i++)
+            foreach (State s in states)
             {
-                if (states[i].ID == name)
+                if (s.ID == name)
                 {
-                    currentStateNumber = i;
-                    return states[i];
+                    return s;
                 }
             }
             return null;
         }
 
-        public void NextState()
-        {
-            currentStateNumber++;
-            if (currentStateNumber >= states.Count)
-            {
-                currentStateNumber = 0;
-            }
-            currentState = states[currentStateNumber];
-        }
-
         public void Update(GameTime gameTime)
         {
             currentState.Update(gameTime);
+
+            if (currentState.changeState)
+            {
+                String nextState = currentState.nextState;
+                int score = -1;
+
+                if (currentState.ID == "PlayState")
+                {
+                    states[0] = null;
+                    states[0] = new PlayState(game, "PlayState");
+                    score = currentState.outputCode;
+                }
+
+                currentState.Terminate();
+
+                currentState = SelectState(nextState);
+                currentState.inputCode = score;
+
+            }
         }
 
         public void Draw()
