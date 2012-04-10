@@ -14,11 +14,11 @@ namespace RunnerAlpha.Code.Entities
 
         public EntityManager(Runner game, SpriteBatch spriteBatch)
         {
-            player = entities.AddLast(new Player(game, spriteBatch, "running", new Vector2(100f)));
-            entities.AddLast(new Platform(game, spriteBatch, "Start", new Vector2(90f, 1080)));
-            entities.AddLast(new Platform(game, spriteBatch, "buildingStupranna", new Vector2(800f, 1000)));
-            entities.AddLast(new Platform(game, spriteBatch, "3", new Vector2(1300f, 1150)));
-            entities.AddLast(new Platform(game, spriteBatch, "buildingDoor", new Vector2(1870f, 1100)));
+            player = entities.AddLast(new Player(game, spriteBatch, @"Graphics\running", new Vector2(100f)));
+            entities.AddLast(new Platform(game, spriteBatch, @"Graphics\Start", new Vector2(90f, 1080)));
+            entities.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingStupranna", new Vector2(800f, 1000)));
+            entities.AddLast(new Platform(game, spriteBatch, @"Graphics\3", new Vector2(1300f, 1150)));
+            entities.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingDoor", new Vector2(1870f, 1100)));
         }
 
         public void Update(GameTime gameTime)
@@ -53,7 +53,7 @@ namespace RunnerAlpha.Code.Entities
                 }
                 else if (p.Intersects(entities.ElementAt(i).rect))
                 {
-                    player.Value.position.Y = entities.ElementAt(i).rect.Y - p.Height / 2;
+                    player.Value.position.Y = (entities.ElementAt(i).rect.Y - p.Height / 2) + 2;
                     player.Value.falling = false;
                     return;
                 }
