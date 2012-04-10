@@ -17,6 +17,7 @@ namespace RunnerAlpha.Code.Input
 
         Keys select;
         Keys pause;
+        Keys space;
 
         public InputManager(Runner game)
         {
@@ -25,6 +26,7 @@ namespace RunnerAlpha.Code.Input
             left = setKey(game.config.getValue("Controls", "Left"));
             select = setKey(game.config.getValue("Controls", "Select"));
             pause = setKey(game.config.getValue("Controls", "Pause"));
+            space = setKey(game.config.getValue("Controls", "Space"));
         }
 
         private Keys setKey(String newKey)
@@ -123,6 +125,18 @@ namespace RunnerAlpha.Code.Input
             get
             {
                 if (currentKey.IsKeyUp(pause) && lastKey.IsKeyDown(pause))
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public bool Space
+        {
+            get
+            {
+                if (currentKey.IsKeyDown(space) && lastKey.IsKeyUp(space))
                 {
                     return true;
                 }

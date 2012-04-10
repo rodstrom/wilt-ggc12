@@ -44,7 +44,7 @@ namespace RunnerAlpha.Code.Entities
         {
             if (falling)
             {
-                position.Y += ((fallTime / 200) * (fallTime / 200));
+                position.Y += (((fallTime / 1000) * (fallTime / 1000)) * 150);
             }
 
             if (input.Left)
@@ -56,7 +56,12 @@ namespace RunnerAlpha.Code.Entities
                 position.X += gameTime.ElapsedGameTime.Milliseconds * 0.7f;
             }
             if (input.Up){
-                position.Y -= 10;
+                position.Y -= 25;
+            }
+            if (input.Space)
+            {
+                game.AudioManager.PlayEffect("Jump");
+                game.AudioManager.PlayMusic();
             }
         }
     }

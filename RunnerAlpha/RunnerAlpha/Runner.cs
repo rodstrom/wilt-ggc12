@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using RunnerAlpha.Code.Graphics;
 using RunnerAlpha.Code.Input;
 using RunnerAlpha.Code.States;
+using RunnerAlpha.Code.Audio;
 
 namespace RunnerAlpha
 {
@@ -23,6 +24,8 @@ namespace RunnerAlpha
 
         StateManager stateManager;
 
+        AudioManager audioManager = null;
+
         public GraphicsDeviceManager graphics;
         //SpriteBatch spriteBatch;
 
@@ -30,6 +33,10 @@ namespace RunnerAlpha
 
         //Texture2D background;
 
+        public AudioManager AudioManager
+        {
+            get { return audioManager; }
+        }
 
         public Runner()
         {
@@ -48,6 +55,14 @@ namespace RunnerAlpha
         {
             config = new InputFile(@"Content\Configs\config.ini");
             config.parse();
+
+            audioManager = new AudioManager(this);
+            audioManager.LoadNewEffect("Jump", @"Audio\Sound\Jump");
+            audioManager.LoadNewMusic("Level1", @"Audio\Music\Level 1");
+            audioManager.LoadNewMusic("Level3", @"Audio\Music\Level3");
+            audioManager.LoadNewMusic("Menu", @"Audio\Music\Menu");
+            audioManager.SetMusic("Level3");
+            audioManager.PlayMusic();
 
             Resolution.Init(ref graphics);
             Resolution.SetResolution(
