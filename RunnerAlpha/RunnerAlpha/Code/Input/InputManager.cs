@@ -17,6 +17,8 @@ namespace RunnerAlpha.Code.Input
 
         Keys quit = Keys.Escape;
 
+        Keys space = Keys.Space;
+
         public InputManager()
         {
 
@@ -106,6 +108,18 @@ namespace RunnerAlpha.Code.Input
             get
             {
                 if (currentKey.IsKeyUp(quit) && lastKey.IsKeyDown(quit))
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public bool Space
+        {
+            get
+            {
+                if (currentKey.IsKeyDown(space) && lastKey.IsKeyUp(space))
                 {
                     return true;
                 }

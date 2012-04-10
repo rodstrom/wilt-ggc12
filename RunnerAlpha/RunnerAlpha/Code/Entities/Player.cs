@@ -54,6 +54,10 @@ namespace RunnerAlpha.Code.Entities
             if (input.Up){
                 position.Y -= 10;
             }
+            if (input.Space)
+            {
+                game.audio.PlayEffect("Jump");
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ using RunnerAlpha.Code.Graphics;
 using RunnerAlpha.Code.Entities;
 using RunnerAlpha.Code.Input;
 using RunnerAlpha.Code.Timer;
+using RunnerAlpha.Code.Audio;
 
 namespace RunnerAlpha
 {
@@ -24,6 +25,7 @@ namespace RunnerAlpha
         EntityManager entities;
 
         Timer timer = null;
+        public AudioManager audio = null;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -31,7 +33,6 @@ namespace RunnerAlpha
         SpriteFont font = null;
 
         Texture2D background;
-
 
         public Runner()
         {
@@ -52,6 +53,10 @@ namespace RunnerAlpha
 
             entities = new EntityManager(this, spriteBatch);
             input = new InputManager();
+            audio = new AudioManager(this);
+            audio.LoadNewEffect("Jump", @"Audio\Sound\Jump");
+            audio.LoadNewMusic("Level1", @"Audio\Music\Level 1");
+            audio.SetMusic("Level1");
 
             Resolution.Init(ref graphics);
             Resolution.SetResolution(1280, 800, false);
