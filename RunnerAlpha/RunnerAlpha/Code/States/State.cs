@@ -28,7 +28,7 @@ namespace RunnerAlpha.Code.States
             this.id = id;
             this.game = game;
 
-            inputManager = new InputManager();
+            inputManager = new InputManager(game);
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
 
             font = game.Content.Load<SpriteFont>(@"Fonts\font");

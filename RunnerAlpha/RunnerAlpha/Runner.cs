@@ -19,10 +19,9 @@ namespace RunnerAlpha
         public const int WIDTH = 1920;
         public const int HEIGHT = 1200;
 
-        //EntityManager entityManager;
-        StateManager stateManager;
+        public InputFile config;
 
-        //Timer timer = null;
+        StateManager stateManager;
 
         public GraphicsDeviceManager graphics;
         //SpriteBatch spriteBatch;
@@ -47,21 +46,17 @@ namespace RunnerAlpha
 
         protected override void LoadContent()
         {
-            //spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            //entityManager = new EntityManager(this, spriteBatch);
-
-            stateManager = new StateManager(this);
+            config = new InputFile(@"Content\Configs\config.ini");
+            config.parse();
 
             Resolution.Init(ref graphics);
-            Resolution.SetResolution(1280, 800, false);
+            Resolution.SetResolution(
+                int.Parse(config.getValue("Video", "Width")),
+                int.Parse(config.getValue("Video", "Height")),
+                bool.Parse(config.getValue("Video", "Fullscreen"))
+                );
 
-            //timer = new Timer(this);
-            //timer.StartTimer();
-
-            //font = this.Content.Load<SpriteFont>(@"Fonts\font");
-
-            //background = this.Content.Load<Texture2D>(@"Graphics\Background");
+            stateManager = new StateManager(this);
         }
 
         protected override void UnloadContent()
@@ -72,10 +67,6 @@ namespace RunnerAlpha
         protected override void Update(GameTime gameTime)
         {
             stateManager.Update(gameTime);
-
-            //entityManager.Update(gameTime);
-
-            //timer.Update(gameTime);
 
             base.Update(gameTime);
         }

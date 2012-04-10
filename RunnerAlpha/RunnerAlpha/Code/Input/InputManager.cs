@@ -11,16 +11,32 @@ namespace RunnerAlpha.Code.Input
         KeyboardState lastKey;
         KeyboardState currentKey;
 
-        Keys up = Keys.W;
-        Keys right = Keys.D;
-        Keys left = Keys.A;
+        Keys up;
+        Keys right;
+        Keys left;
 
-        Keys select = Keys.Enter;
-        Keys pause = Keys.Escape;
+        Keys select;
+        Keys pause;
 
-        public InputManager()
+        public InputManager(Runner game)
         {
+            up = setKey(game.config.getValue("Controls", "Up"));
+            right = setKey(game.config.getValue("Controls", "Right"));
+            left = setKey(game.config.getValue("Controls", "Left"));
+            select = setKey(game.config.getValue("Controls", "Select"));
+            pause = setKey(game.config.getValue("Controls", "Pause"));
+        }
 
+        private Keys setKey(String newKey)
+        {
+            try
+            {
+                return (Keys)Enum.Parse(typeof(Keys), newKey);
+            }
+            catch (Exception)
+            {
+                return Keys.F24;
+            }
         }
 
         public void Update()
