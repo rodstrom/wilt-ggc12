@@ -21,7 +21,7 @@ namespace RunnerAlpha.Code.States
             states.Add(new PlayState(game, "PlayState"));
             states.Add(new HighScoreState(game, "HighScoreState"));
 
-            currentState = SelectState("PlayState");
+            currentState = SelectState(game.config.getValue("General", "StartState"));
         }
 
         public State SelectState(String name)

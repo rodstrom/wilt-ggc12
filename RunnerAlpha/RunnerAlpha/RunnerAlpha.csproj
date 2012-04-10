@@ -112,6 +112,7 @@
     <Compile Include="Code\Entities\EntityManager.cs" />
     <Compile Include="Code\Entities\Platform.cs" />
     <Compile Include="Code\Entities\Player.cs" />
+    <Compile Include="Code\Input\InputFile.cs" />
     <Compile Include="Code\States\HighScoreState.cs" />
     <Compile Include="Code\States\PlayState.cs" />
     <Compile Include="Code\States\State.cs" />

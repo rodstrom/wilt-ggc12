@@ -20,7 +20,7 @@ namespace RunnerAlpha.Code.Entities
         public Player(Runner game, SpriteBatch spriteBatch, string filename, Vector2 position)
             : base(game, spriteBatch, filename, position)
         {
-            this.input = new InputManager();
+            this.input = new InputManager(game);
             this.fallTime = 0f;
         }
 

@@ -87,6 +87,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Configs\config.ini">
+      <Name>config</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Audio\Sound\Jump.wav">
       <Name>Jump</Name>
       <Importer>WavImporter</Importer>
