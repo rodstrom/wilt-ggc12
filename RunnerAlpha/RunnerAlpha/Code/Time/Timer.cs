@@ -118,6 +118,31 @@ namespace RunnerAlpha.Code.Time
             return base.ToString();
         }
 
+        public int ToInteger(String format)
+        {
+            if (format == "ms_total")
+            {
+                return (int)MainEvent.currentTime;
+            }
+            if (format == "s_total")
+            {
+                return (int)MainEvent.currentTime / 1000;
+            }
+            if (format == "m_total")
+            {
+                return (int)MainEvent.currentTime / 60000;
+            }
+            if (format == "ms_mod")
+            {
+                return (int)MainEvent.currentTime % 1000;
+            }
+            if (format == "s_mod")
+            {
+                return (int)MainEvent.currentTime % 60000;
+            }
+            return 0;
+        }
+
         public override void Update(GameTime gameTime)
         {
             if (MainEvent.active)

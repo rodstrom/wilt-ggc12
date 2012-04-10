@@ -8,47 +8,35 @@ using RunnerAlpha.Code.Input;
 
 namespace RunnerAlpha.Code.States
 {
-    class State
+    abstract class State
     {
+        private String id;
         protected Runner game;
-        String id;
-
         protected InputManager inputManager;
+
+        public int inputCode = 0;
+        public int outputCode = 0;
 
         protected SpriteBatch spriteBatch;
         protected SpriteFont font;
+
+        public bool changeState = false;
+        public String nextState;
 
         public State(Runner game, String id)
         {
             this.id = id;
             this.game = game;
 
-            LoadContent();
-        }
-
-        protected void LoadContent()
-        {
             inputManager = new InputManager();
-
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
 
             font = game.Content.Load<SpriteFont>(@"Fonts\font");
         }
 
-        public virtual void Update(GameTime gameTime)
-        {
-            inputManager.Update();
-
-            //if (inputManager.Quit)
-            //{
-            //    game.Exit();
-            //}
-        }
-
-        public virtual void Draw()
-        {
-
-        }
+        public abstract void Terminate();
+        public abstract void Update(GameTime gameTime);
+        public abstract void Draw();
 
         public String ID
         {

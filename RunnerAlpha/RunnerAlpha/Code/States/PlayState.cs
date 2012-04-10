@@ -19,6 +19,8 @@ namespace RunnerAlpha.Code.States
         
         Texture2D background;
 
+        int score = 0;
+
         bool pause = false;
         int pauseSelectedItem = 0;
 
@@ -27,50 +29,77 @@ namespace RunnerAlpha.Code.States
         {
             entityManager = new EntityManager(game, spriteBatch);
 
+            nextState = "HighScoreState";
+
             timer = new Timer(game);
             timer.StartTimer();
 
             background = game.Content.Load<Texture2D>(@"Graphics\Background");
         }
 
+        public override void Terminate()
+        {
+            entityManager.Terminate();
+            timer.ResetTimer();
+            score = 0;
+            changeState = false;
+        }
+
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
+            inputManager.Update();
 
             if (inputManager.Pause)
             {
                 pause = !pause;
             }
 
+            if (entityManager.player.win)
+            {
+                outputCode = score;
+                changeState = true;
+            }
+            else if (entityManager.player.lose)
+            {
+                outputCode = -1;
+                changeState = true;
+            }
+
             if (!pause)
             {
                 timer.Update(gameTime);
+                score = timer.ToInteger("s_total");
 
                 entityManager.Update(gameTime);
             }
             else
             {
-                if (inputManager.LeftOnce || inputManager.RightOnce)
+                SelectionScreen();
+            }
+        }
+
+        private void SelectionScreen()
+        {
+            if (inputManager.LeftOnce || inputManager.RightOnce)
+            {
+                if (pauseSelectedItem == 0)
                 {
-                    if (pauseSelectedItem == 0)
-                    {
-                        pauseSelectedItem = 1;
-                    }
-                    else
-                    {
-                        pauseSelectedItem = 0;
-                    }
+                    pauseSelectedItem = 1;
                 }
-                if (inputManager.Select)
+                else
                 {
-                    if (pauseSelectedItem == 0)
-                    {
-                        pause = false;
-                    }
-                    else
-                    {
-                        game.Exit();
-                    }
+                    pauseSelectedItem = 0;
+                }
+            }
+            if (inputManager.Select)
+            {
+                if (pauseSelectedItem == 0)
+                {
+                    pause = false;
+                }
+                else
+                {
+                    changeState = true;
                 }
             }
         }
