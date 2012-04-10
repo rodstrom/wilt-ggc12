@@ -82,6 +82,24 @@
       <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Audio\Music\Level 1.xnb</Output>
       <Time>2012-04-10T12:59:30.1977232+02:00</Time>
     </Item>
+    <Item>
+      <Source>Audio\Music\Menu.wav</Source>
+      <Name>Audio\Music\Menu</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Audio\Music\Menu.xnb</Output>
+      <Time>2012-04-10T15:04:10.6827519+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Audio\Music\Level3.wav</Source>
+      <Name>Audio\Music\Level3</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Audio\Music\Level3.xnb</Output>
+      <Time>2012-04-10T15:33:00.9233244+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

@@ -17,8 +17,6 @@ namespace RunnerAlpha.Code.Entities
         public Vector2 origin;
         public float layer;
 
-        public bool falling = false;
-
         public Entity(Runner game, SpriteBatch spriteBatch, string filename, Vector2 position)
         {
             this.game = game;

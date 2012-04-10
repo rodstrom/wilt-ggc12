@@ -13,6 +13,8 @@ namespace RunnerAlpha.Code.Entities
         InputManager input;
         float fallTime;
 
+        public bool falling = false;
+
         public Player(Runner game, SpriteBatch spriteBatch, string filename, Vector2 position)
             : base(game, spriteBatch, filename, position)
         {
@@ -40,7 +42,7 @@ namespace RunnerAlpha.Code.Entities
         {
             if (falling)
             {
-                position.Y += ((fallTime / 200) * (fallTime / 200));
+                position.Y += (((fallTime / 1000) * (fallTime / 1000)) * 150);
             }
 
             if (input.Left)
@@ -52,11 +54,12 @@ namespace RunnerAlpha.Code.Entities
                 position.X += gameTime.ElapsedGameTime.Milliseconds * 0.7f;
             }
             if (input.Up){
-                position.Y -= 10;
+                position.Y -= 25;
             }
             if (input.Space)
             {
-                game.audio.PlayEffect("Jump");
+                game.AudioManager.PlayEffect("Jump");
+                game.AudioManager.PlayMusic();
             }
         }
     }

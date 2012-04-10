@@ -9,9 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using RunnerAlpha.Code.Graphics;
-using RunnerAlpha.Code.Entities;
 using RunnerAlpha.Code.Input;
-using RunnerAlpha.Code.Timer;
+using RunnerAlpha.Code.States;
 using RunnerAlpha.Code.Audio;
 
 namespace RunnerAlpha
@@ -21,18 +20,24 @@ namespace RunnerAlpha
         public const int WIDTH = 1920;
         public const int HEIGHT = 1200;
 
-        InputManager input;
-        EntityManager entities;
+        //EntityManager entityManager;
+        StateManager stateManager;
 
-        Timer timer = null;
-        public AudioManager audio = null;
+        AudioManager audioManager = null;
 
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        //Timer timer = null;
 
-        SpriteFont font = null;
+        public GraphicsDeviceManager graphics;
+        //SpriteBatch spriteBatch;
 
-        Texture2D background;
+        //SpriteFont font = null;
+
+        //Texture2D background;
+
+        public AudioManager AudioManager
+        {
+            get { return audioManager; }
+        }
 
         public Runner()
         {
@@ -49,24 +54,29 @@ namespace RunnerAlpha
 
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            //spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            entities = new EntityManager(this, spriteBatch);
-            input = new InputManager();
-            audio = new AudioManager(this);
-            audio.LoadNewEffect("Jump", @"Audio\Sound\Jump");
-            audio.LoadNewMusic("Level1", @"Audio\Music\Level 1");
-            audio.SetMusic("Level1");
+            //entityManager = new EntityManager(this, spriteBatch);
+
+            stateManager = new StateManager(this);
+
+            audioManager = new AudioManager(this);
+            audioManager.LoadNewEffect("Jump", @"Audio\Sound\Jump");
+            audioManager.LoadNewMusic("Level1", @"Audio\Music\Level 1");
+            audioManager.LoadNewMusic("Level3", @"Audio\Music\Level3");
+            audioManager.LoadNewMusic("Menu", @"Audio\Music\Menu");
+            audioManager.SetMusic("Level3");
+            audioManager.PlayMusic();
 
             Resolution.Init(ref graphics);
             Resolution.SetResolution(1280, 800, false);
 
-            timer = new Timer(this);
-            timer.StartTimer();
+            //timer = new Timer(this);
+            //timer.StartTimer();
 
-            font = this.Content.Load<SpriteFont>(@"Fonts\font");
+            //font = this.Content.Load<SpriteFont>(@"Fonts\font");
 
-            background = this.Content.Load<Texture2D>(@"Graphics\Background");
+            //background = this.Content.Load<Texture2D>(@"Graphics\Background");
         }
 
         protected override void UnloadContent()
@@ -76,32 +86,20 @@ namespace RunnerAlpha
 
         protected override void Update(GameTime gameTime)
         {
-            entities.Update(gameTime);
+            stateManager.Update(gameTime);
 
-            timer.Update(gameTime);
+            //entityManager.Update(gameTime);
 
-            input.Update();
-            if (input.Quit)
-            {
-                this.Exit();
-            }
+            //timer.Update(gameTime);
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, Resolution.getTransformationMatrix());
-            
-            spriteBatch.Draw(background, new Vector2(0, 0), Color.White);
-            int time = (int)timer.MainEvent.currentTime;
-            spriteBatch.DrawString(font, (time / 1000).ToString(), new Vector2(100, 100), Color.Red);
-
-            entities.Draw();
-
-            spriteBatch.End();
+            stateManager.Draw();
 
             base.Draw(gameTime);
         }
