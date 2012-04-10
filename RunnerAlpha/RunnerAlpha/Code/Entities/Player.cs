@@ -13,6 +13,8 @@ namespace RunnerAlpha.Code.Entities
         InputManager input;
         float fallTime;
 
+        public bool falling = false;
+
         public Player(Runner game, SpriteBatch spriteBatch, string filename, Vector2 position)
             : base(game, spriteBatch, filename, position)
         {

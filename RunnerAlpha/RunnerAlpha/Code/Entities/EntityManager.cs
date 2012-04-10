@@ -9,23 +9,27 @@ namespace RunnerAlpha.Code.Entities
 {
     class EntityManager
     {
-        LinkedList<Entity> entities = new LinkedList<Entity>();
-        LinkedListNode<Entity> player;
+        LinkedList<Platform> platforms = new LinkedList<Platform>();
+
+        Player player;
 
         public EntityManager(Runner game, SpriteBatch spriteBatch)
         {
-            player = entities.AddLast(new Player(game, spriteBatch, @"Graphics\running", new Vector2(100f)));
-            entities.AddLast(new Platform(game, spriteBatch, @"Graphics\Start", new Vector2(90f, 1080)));
-            entities.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingStupranna", new Vector2(800f, 1000)));
-            entities.AddLast(new Platform(game, spriteBatch, @"Graphics\3", new Vector2(1300f, 1150)));
-            entities.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingDoor", new Vector2(1870f, 1100)));
+            player = new Player(game, spriteBatch, @"Graphics\running", new Vector2(100f));
+
+            platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\Start", new Vector2(90f, 1080)));
+            platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingStupranna", new Vector2(800f, 1000)));
+            platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\3", new Vector2(1300f, 1150)));
+            platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingDoor", new Vector2(1870f, 1100)));
         }
 
         public void Update(GameTime gameTime)
         {
-            foreach (Entity e in entities)
+            player.Update(gameTime);
+
+            foreach (Platform p in platforms)
             {
-                e.Update(gameTime);
+                p.Update(gameTime);
             }
 
             CollisionCheck();
@@ -33,9 +37,11 @@ namespace RunnerAlpha.Code.Entities
 
         public void Draw()
         {
-            foreach (Entity e in entities)
+            player.Draw();
+
+            foreach (Platform p in platforms)
             {
-                e.Draw();
+                p.Draw();
             }
         }
 
@@ -43,18 +49,18 @@ namespace RunnerAlpha.Code.Entities
         {
             PlayerOutOfBoundsCheck();
 
-            Rectangle p = player.Value.rect;
-            player.Value.falling = false;
-            for (int i = 1; i < entities.Count; i++)
+            Rectangle p = player.rect;
+            player.falling = false;
+            foreach(Platform pl in platforms)
             {
-                if (!(p.Intersects(entities.ElementAt(i).rect)))
+                if (!(p.Intersects(pl.rect)))
                 {
-                    player.Value.falling = true;
+                    player.falling = true;
                 }
-                else if (p.Intersects(entities.ElementAt(i).rect))
+                else if (p.Intersects(pl.rect))
                 {
-                    player.Value.position.Y = (entities.ElementAt(i).rect.Y - p.Height / 2) + 2;
-                    player.Value.falling = false;
+                    player.position.Y = (pl.rect.Y - p.Height / 2) + 2;
+                    player.falling = false;
                     return;
                 }
             }
@@ -63,22 +69,22 @@ namespace RunnerAlpha.Code.Entities
 
         private void PlayerOutOfBoundsCheck()
         {
-            if (player.Value.position.X + player.Value.rect.Width / 2 > Runner.WIDTH)
+            if (player.position.X + player.rect.Width / 2 > Runner.WIDTH)
             {
-                player.Value.position.X = Runner.WIDTH - player.Value.rect.Width / 2;
+                player.position.X = Runner.WIDTH - player.rect.Width / 2;
             }
-            if (player.Value.position.X - player.Value.rect.Width / 2 < 0f)
+            if (player.position.X - player.rect.Width / 2 < 0f)
             {
-                player.Value.position.X = player.Value.rect.Width / 2;
+                player.position.X = player.rect.Width / 2;
             }
-            if (player.Value.position.Y + player.Value.rect.Height / 2 > Runner.HEIGHT)
+            if (player.position.Y + player.rect.Height / 2 > Runner.HEIGHT)
             {
-                player.Value.position.X = 100f;
-                player.Value.position.Y = 100f;
+                player.position.X = 100f;
+                player.position.Y = 100f;
             }
-            if (player.Value.position.Y - player.Value.rect.Height / 2 < -100f)
+            if (player.position.Y - player.rect.Height / 2 < -100f)
             {
-                player.Value.position.Y = -100f;
+                player.position.Y = -100f;
             }
         }
     }

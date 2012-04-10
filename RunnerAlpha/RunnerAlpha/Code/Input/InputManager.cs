@@ -15,7 +15,8 @@ namespace RunnerAlpha.Code.Input
         Keys right = Keys.D;
         Keys left = Keys.A;
 
-        Keys quit = Keys.Escape;
+        Keys select = Keys.Enter;
+        Keys pause = Keys.Escape;
 
         public InputManager()
         {
@@ -27,42 +28,6 @@ namespace RunnerAlpha.Code.Input
             lastKey = currentKey;
             currentKey = Keyboard.GetState();
         }
-
-        //public bool Up
-        //{
-        //    get
-        //    {
-        //        if (currentKey.IsKeyUp(up) && lastKey.IsKeyDown(up))
-        //        {
-        //            return true;
-        //        }
-        //        return false;
-        //    }
-        //}
-
-        //public bool Right
-        //{
-        //    get
-        //    {
-        //        if (currentKey.IsKeyUp(right) && lastKey.IsKeyDown(right))
-        //        {
-        //            return true;
-        //        }
-        //        return false;
-        //    }
-        //}
-
-        //public bool Left
-        //{
-        //    get
-        //    {
-        //        if (currentKey.IsKeyUp(left) && lastKey.IsKeyDown(left))
-        //        {
-        //            return true;
-        //        }
-        //        return false;
-        //    }
-        //}
         
         public bool Up
         {
@@ -89,6 +54,18 @@ namespace RunnerAlpha.Code.Input
             }
         }
 
+        public bool RightOnce
+        {
+            get
+            {
+                if (currentKey.IsKeyUp(right) && lastKey.IsKeyDown(right))
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
         public bool Left
         {
             get
@@ -101,11 +78,35 @@ namespace RunnerAlpha.Code.Input
             }
         }
 
-        public bool Quit
+        public bool LeftOnce
         {
             get
             {
-                if (currentKey.IsKeyUp(quit) && lastKey.IsKeyDown(quit))
+                if (currentKey.IsKeyUp(left) && lastKey.IsKeyDown(left))
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public bool Select
+        {
+            get
+            {
+                if (currentKey.IsKeyUp(select) && lastKey.IsKeyDown(select))
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public bool Pause
+        {
+            get
+            {
+                if (currentKey.IsKeyUp(pause) && lastKey.IsKeyDown(pause))
                 {
                     return true;
                 }

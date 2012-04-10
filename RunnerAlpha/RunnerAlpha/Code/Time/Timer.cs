@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace RunnerAlpha.Code.Timer
+namespace RunnerAlpha.Code.Time
 {
     class Timer : GameComponent
     {
