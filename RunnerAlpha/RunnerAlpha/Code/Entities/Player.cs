@@ -61,7 +61,6 @@ namespace RunnerAlpha.Code.Entities
             if (input.Space)
             {
                 game.AudioManager.PlayEffect("Jump");
-                game.AudioManager.PlayMusic();
             }
         }
     }
