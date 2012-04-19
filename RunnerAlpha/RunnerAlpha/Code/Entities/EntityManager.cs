@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using RunnerAlpha.Code.Lines;
 
 namespace RunnerAlpha.Code.Entities
 {
@@ -13,6 +14,8 @@ namespace RunnerAlpha.Code.Entities
         LinkedList<Platform> platforms = new LinkedList<Platform>();
         Rectangle goal;
 
+        LinkedList<GroundLine> groundLines = new LinkedList<GroundLine>();
+
         public EntityManager(Runner game, SpriteBatch spriteBatch)
         {
             player = new Player(game, spriteBatch, @"Graphics\running", new Vector2(100f));
@@ -21,6 +24,8 @@ namespace RunnerAlpha.Code.Entities
             platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingStupranna", new Vector2(800f, 1000)));
             platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\3", new Vector2(1300f, 1150)));
             platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingDoor", new Vector2(1870f, 1100)));
+
+            groundLines.AddLast(new GroundLine(game, spriteBatch, new Rectangle(500, 500, 1500, 800)));
 
             goal = new Rectangle(1850, 900, 200, 200);
         }
@@ -51,6 +56,11 @@ namespace RunnerAlpha.Code.Entities
             {
                 p.Draw();
             }
+
+            foreach (GroundLine gl in groundLines)
+            {
+                gl.Draw();
+            }
         }
 
         private void CollisionCheck()
@@ -72,6 +82,8 @@ namespace RunnerAlpha.Code.Entities
                     return;
                 }
             }
+
+            //INSERT LINE DETECTION, REMOVE PLATFORMS
 
             if (p.Intersects(goal))
             {

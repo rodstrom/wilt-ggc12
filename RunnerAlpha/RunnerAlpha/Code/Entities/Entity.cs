@@ -36,7 +36,7 @@ namespace RunnerAlpha.Code.Entities
         }
 
         public virtual void Draw()
-        {
+        { 
             this.sprite.Draw(this.position, new Rectangle(0, 0, (int)this.sprite.Dimension.X, (int)this.sprite.Dimension.Y), Color.White, 0f, this.origin, 1f, SpriteEffects.None, this.layer, null);
         }
 

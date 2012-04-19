@@ -71,6 +71,8 @@ namespace RunnerAlpha
                 bool.Parse(config.getValue("Video", "Fullscreen"))
                 );
 
+            LineBatch.Init(GraphicsDevice);
+
             stateManager = new StateManager(this);
         }
 
