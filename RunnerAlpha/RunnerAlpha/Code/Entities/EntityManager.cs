@@ -44,6 +44,8 @@ namespace RunnerAlpha.Code.Entities
 
         public void Terminate()
         {
+            player = null;
+            platform = null;
             entityList.Clear();
         }
 

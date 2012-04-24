@@ -28,7 +28,7 @@ namespace RunnerAlpha.Code.Entities
         {
             this.input = new InputManager(game);
             this.fallTime = 0f;
-            this.runTime = 0f;
+            this.runTime = 1f;
             this.position = position;
             kinetics = Vector2.Zero;
         }
@@ -56,15 +56,15 @@ namespace RunnerAlpha.Code.Entities
 
             runTime += gameTime.ElapsedGameTime.Milliseconds;
 
-            if (kinetics.X < 25)
+            if (kinetics.X < 100)
             {
-                kinetics.X = 25;
+                kinetics.X += (((runTime / 1000) * (runTime / 1000)));
             }
-            if (kinetics.X < 490f)
+            if (kinetics.X < 245f)
             {
                 kinetics.X += (((runTime / 1000) * (runTime / 1000)) * 0.1f);
             }
-            if (kinetics.X > 510f)
+            if (kinetics.X > 255f)
             {
                 kinetics.X -= (((runTime / 1000) * (runTime / 1000)) * 0.1f);
             }
@@ -96,6 +96,10 @@ namespace RunnerAlpha.Code.Entities
             if (input.Left)
             {
                 kinetics.X -= 50f;
+            }
+            if (input.Right)
+            {
+                kinetics.X += 50f;
             }
             if (input.Space)
             {
