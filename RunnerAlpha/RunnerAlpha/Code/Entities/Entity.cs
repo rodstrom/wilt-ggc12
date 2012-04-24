@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace RunnerAlpha.Code.Entities
 {
-    class Entity
+    public class Entity
     {
         public Runner game;
         public Sprite sprite;
@@ -31,8 +31,8 @@ namespace RunnerAlpha.Code.Entities
         public virtual void Update(GameTime gameTime)
         {
             this.sprite.Update(gameTime);
-            this.rect.X = (int)this.position.X - (int)this.sprite.Dimension.X / 2;
-            this.rect.Y = (int)this.position.Y - (int)this.sprite.Dimension.Y / 2;
+            this.rect.X = (int)this.position.X;
+            this.rect.Y = (int)this.position.Y - (int)this.sprite.Dimension.Y;
         }
 
         public virtual void Draw()

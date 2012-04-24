@@ -108,10 +108,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\Audio\AudioManager.cs" />
+    <Compile Include="Code\Camera\Camera.cs" />
     <Compile Include="Code\Entities\Entity.cs" />
     <Compile Include="Code\Entities\EntityManager.cs" />
     <Compile Include="Code\Entities\Platform.cs" />
     <Compile Include="Code\Entities\Player.cs" />
+    <Compile Include="Code\Graphics\Animation.cs" />
+    <Compile Include="Code\Graphics\AnimationFrame.cs" />
+    <Compile Include="Code\Graphics\AnimationStrip.cs" />
+    <Compile Include="Code\Graphics\Background.cs" />
     <Compile Include="Code\Graphics\LineBatch.cs" />
     <Compile Include="Code\Input\InputFile.cs" />
     <Compile Include="Code\Lines\ClimbLine.cs" />

@@ -8,16 +8,18 @@ using RunnerAlpha.Code.Graphics;
 using RunnerAlpha.Code.Entities;
 using RunnerAlpha.Code.Time;
 using RunnerAlpha.Code.Input;
+using RunnerAlpha.Code.Camera;
+using Microsoft.Xna.Framework.Input;
 
 namespace RunnerAlpha.Code.States
 {
     class PlayState : State
     {
         EntityManager entityManager;
-
-        Timer timer = null;
         
-        Texture2D background;
+        //Texture2D background;
+
+        Vector2 guiPosition;
 
         int score = 0;
 
@@ -28,19 +30,19 @@ namespace RunnerAlpha.Code.States
             : base(game, id)
         {
             entityManager = new EntityManager(game, spriteBatch);
+            game.Camera.Focus = entityManager.player;
 
             nextState = "HighScoreState";
 
-            timer = new Timer(game);
-            timer.StartTimer();
+            game.Timer.StartTimer();
 
-            background = game.Content.Load<Texture2D>(@"Graphics\Background");
+            //background = game.Content.Load<Texture2D>(@"Graphics\Background");
         }
 
         public override void Terminate()
         {
             entityManager.Terminate();
-            timer.ResetTimer();
+            game.Timer.ResetTimer();
             score = 0;
             changeState = false;
         }
@@ -49,9 +51,33 @@ namespace RunnerAlpha.Code.States
         {
             inputManager.Update();
 
+            game.Camera.Update(gameTime);
+            guiPosition.X = game.Camera.Position.X - game.Camera.View.Width / 3;
+            guiPosition.Y = game.Camera.Position.Y - game.Camera.View.Height / 3;
+
+
             if (inputManager.Pause)
             {
                 pause = !pause;
+            }
+
+            KeyboardState key = Keyboard.GetState();
+
+            if (key.IsKeyDown(Keys.Left))
+            {
+                game.Camera.Rotation -= 0.01f;
+            }
+            if (key.IsKeyDown(Keys.Right))
+            {
+                game.Camera.Rotation += 0.01f;
+            }
+            if (key.IsKeyDown(Keys.Up))
+            {
+                game.Camera.Zoom += 0.01f;
+            }
+            if (key.IsKeyDown(Keys.Down))
+            {
+                game.Camera.Zoom -= 0.01f;
             }
 
             if (entityManager.player.win)
@@ -67,8 +93,8 @@ namespace RunnerAlpha.Code.States
 
             if (!pause)
             {
-                timer.Update(gameTime);
-                score = timer.ToInteger("s_total");
+                game.Timer.Update(gameTime);
+                score = game.Timer.ToInteger("s_total");
 
                 entityManager.Update(gameTime);
             }
@@ -106,11 +132,10 @@ namespace RunnerAlpha.Code.States
 
         public override void Draw()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, Resolution.getTransformationMatrix());
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, game.Camera.Transform);
 
-            spriteBatch.Draw(background, new Vector2(0, 0), Color.White);
-            int time = (int)timer.MainEvent.currentTime;
-            spriteBatch.DrawString(font, (time / 1000).ToString(), new Vector2(100, 100), Color.Red);
+            //spriteBatch.Draw(background, new Vector2(0, 0), Color.White);
+            //spriteBatch.Draw(background, new Vector2(1920, 0), Color.White);
 
             entityManager.Draw();
 
@@ -118,6 +143,9 @@ namespace RunnerAlpha.Code.States
             {
                 drawPauseDialog();
             }
+            int time = (int)game.Timer.MainEvent.currentTime;
+
+            spriteBatch.DrawString(font, (time / 1000).ToString(), guiPosition, Color.Red);
 
             spriteBatch.End();
         }
@@ -128,30 +156,30 @@ namespace RunnerAlpha.Code.States
             Color[] data = new Color[500 * 220];
             for (int i = 0; i < data.Length; ++i) data[i] = Color.Black;
             dialog.SetData(data);
-            Vector2 pos = new Vector2(Runner.WIDTH / 2 - 250, Runner.HEIGHT / 2 - 110);
+            Vector2 pos = new Vector2(game.Camera.Position.X - 250, game.Camera.Position.Y - 110);
             spriteBatch.Draw(dialog, pos, Color.White);
 
             Texture2D selection = new Texture2D(game.graphics.GraphicsDevice, 200, 80);
             data = new Color[200 * 80];
             for (int i = 0; i < data.Length; ++i) data[i] = Color.Gray;
             selection.SetData(data);
-            pos = new Vector2(Runner.WIDTH / 2 - 220 + 240 * pauseSelectedItem, Runner.HEIGHT / 2 + 5);
+            pos = new Vector2(game.Camera.Position.X + (-240 + (240 * pauseSelectedItem)), game.Camera.Position.Y + 5);
             spriteBatch.Draw(selection, pos, Color.White);
 
             String dialogText = "Giving up?";
             Vector2 origin = font.MeasureString(dialogText);
             origin.X /= 2;
-            pos = new Vector2(Runner.WIDTH / 2, Runner.HEIGHT / 2 - 20);
+            pos = new Vector2(game.Camera.Position.X, game.Camera.Position.Y - 20);
             spriteBatch.DrawString(font, dialogText, pos, Color.White, 0f, origin, 1f, SpriteEffects.None, 1f);
 
             dialogText = "Fuck no!";
             origin = font.MeasureString(dialogText) / 2;
-            pos = new Vector2(Runner.WIDTH / 2 - 125, Runner.HEIGHT / 2 + 45);
+            pos = new Vector2(game.Camera.Position.X - 135, game.Camera.Position.Y + 45);
             spriteBatch.DrawString(font, dialogText, pos, Color.White, 0f, origin, 1f, SpriteEffects.None, 1f);
 
             dialogText = "Yeah...";
             origin = font.MeasureString(dialogText) / 2;
-            pos = new Vector2(Runner.WIDTH / 2 + 125, Runner.HEIGHT / 2 + 45);
+            pos = new Vector2(game.Camera.Position.X + 135, game.Camera.Position.Y + 45);
             spriteBatch.DrawString(font, dialogText, pos, Color.White, 0f, origin, 1f, SpriteEffects.None, 1f);
         }
     }

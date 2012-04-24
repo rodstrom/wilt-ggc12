@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RunnerAlpha.Code.Time
 {
-    class Event
+    public class Event
     {
         public float currentTime, lastTime;
 

@@ -12,6 +12,8 @@ using RunnerAlpha.Code.Graphics;
 using RunnerAlpha.Code.Input;
 using RunnerAlpha.Code.States;
 using RunnerAlpha.Code.Audio;
+using RunnerAlpha.Code.Camera;
+using RunnerAlpha.Code.Time;
 
 namespace RunnerAlpha
 {
@@ -26,12 +28,26 @@ namespace RunnerAlpha
 
         AudioManager audioManager = null;
 
+        Timer timer;
+
         public GraphicsDeviceManager graphics;
+
+        Camera2D camera = null;
         //SpriteBatch spriteBatch;
 
         //SpriteFont font = null;
 
         //Texture2D background;
+
+        public Timer Timer
+        {
+            get { return timer; }
+        }
+
+        public Camera2D Camera
+        {
+            get { return camera; }
+        }
 
         public AudioManager AudioManager
         {
@@ -56,6 +72,8 @@ namespace RunnerAlpha
             config = new InputFile(@"Content\Configs\config.ini");
             config.parse();
 
+            timer = new Timer(this);
+
             audioManager = new AudioManager(this);
             audioManager.LoadNewEffect("Jump", @"Audio\Sound\Jump");
             audioManager.LoadNewMusic("Level1", @"Audio\Music\Level 1");
@@ -70,6 +88,9 @@ namespace RunnerAlpha
                 int.Parse(config.getValue("Video", "Height")),
                 bool.Parse(config.getValue("Video", "Fullscreen"))
                 );
+
+            Viewport view = new Viewport(0, 0, 1280, 800);
+            camera = new Camera2D(view, this);
 
             LineBatch.Init(GraphicsDevice);
 

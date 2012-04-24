@@ -5,36 +5,59 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RunnerAlpha.Code.Lines;
+using RunnerAlpha.Code.Graphics;
 
 namespace RunnerAlpha.Code.Entities
 {
     class EntityManager
     {
+        Runner game;
+        SpriteBatch spriteBatch;
+
         public Player player;
         LinkedList<Platform> platforms = new LinkedList<Platform>();
-        Rectangle goal;
+        List<String> platformFiles = new List<String>();
+        Random random = new Random();
+
+        Background background;
 
         //LinkedList<GroundLine> groundLines = new LinkedList<GroundLine>();
 
         public EntityManager(Runner game, SpriteBatch spriteBatch)
         {
-            player = new Player(game, spriteBatch, @"Graphics\running", new Vector2(50f, 500f));
+            this.game = game;
+            this.spriteBatch = spriteBatch;
 
-            platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\Start", new Vector2(90f, 1080)));
-            platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingStupranna", new Vector2(800f, 1000)));
-            platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\3", new Vector2(1300f, 1150)));
-            platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingDoor", new Vector2(1870f, 1100)));
+            player = new Player(game, spriteBatch, @"Graphics\running", new Vector2(100f, 900));
 
-            //groundLines.AddLast(new GroundLine(game, spriteBatch, new Rectangle(0, 995, 163, 995)));
-            //groundLines.AddLast(new GroundLine(game, spriteBatch, new Rectangle(163, 995, 265, 955)));
+            background = new Background(@"Graphics\Background", spriteBatch, game);
 
-            //groundLines.AddLast(new GroundLine(game, spriteBatch, new Rectangle(763, 793, 945, 793)));
+            platformFiles.Add(@"Graphics\3");
+            platformFiles.Add(@"Graphics\buildingDoor");
+            platformFiles.Add(@"Graphics\buildingStupranna");
+            platformFiles.Add(@"Graphics\Start");
 
-            //groundLines.AddLast(new GroundLine(game, spriteBatch, new Rectangle(1195, 1075, 1405, 1075)));
+            platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\3", new Vector2(0f, 1200f)));
+            for (int i = 0; i < 9; i++)
+            {
+                platforms.AddLast( addPlatform() );
+            }
+        }
 
-            //groundLines.AddLast(new GroundLine(game, spriteBatch, new Rectangle(1815, 975, 1920, 975)));
+        private void refreshPlatforms()
+        {
+            platforms.RemoveFirst();
+            platforms.AddLast( addPlatform() );
+        }
 
-            goal = new Rectangle(1870, 920, 1920, 975);
+        private Platform addPlatform()
+        {
+            string filename = platformFiles[random.Next(platformFiles.Count)];
+            Platform lastPlatform = platforms.Last.Value;
+            float posX = lastPlatform.position.X + lastPlatform.rect.Width + 0f;
+            Vector2 position = new Vector2(posX, 1200f);
+
+            return new Platform(game, spriteBatch, filename, position);
         }
 
         public void Terminate()
@@ -52,11 +75,18 @@ namespace RunnerAlpha.Code.Entities
                 p.Update(gameTime);
             }
 
+            if (platforms.First.Value.rect.Right < game.Camera.Position.X - Runner.WIDTH / 2)
+            {
+                refreshPlatforms();
+            }
+
             CollisionCheck();
         }
 
         public void Draw()
         {
+            background.Draw(new Vector2(game.Camera.Position.X - Runner.WIDTH / 2, 0f));
+
             player.Draw();
 
             foreach (Platform p in platforms)
@@ -84,18 +114,13 @@ namespace RunnerAlpha.Code.Entities
                     return;
                 }
             }
-
-            if (p.Intersects(goal))
-            {
-                player.win = true;
-            }
         }
 
         private void PlayerOutOfBoundsCheck()
         {
             if (player.position.X + player.rect.Width / 2 > Runner.WIDTH)
             {
-                player.position.X = Runner.WIDTH - player.rect.Width / 2;
+                //player.position.X = Runner.WIDTH - player.rect.Width / 2;
             }
             if (player.position.X - player.rect.Width / 2 < 0f)
             {
