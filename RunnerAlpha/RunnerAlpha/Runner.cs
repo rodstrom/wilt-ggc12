@@ -92,6 +92,8 @@ namespace RunnerAlpha
             Viewport view = new Viewport(0, 0, 1280, 800);
             camera = new Camera2D(view, this);
 
+            LineBatch.Init(GraphicsDevice);
+
             stateManager = new StateManager(this);
         }
 

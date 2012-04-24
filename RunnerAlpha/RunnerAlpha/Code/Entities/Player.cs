@@ -60,11 +60,11 @@ namespace RunnerAlpha.Code.Entities
             {
                 kinetics.X += (((runTime / 1000) * (runTime / 1000)));
             }
-            if (kinetics.X < 245f)
+            if (kinetics.X < 200f)
             {
                 kinetics.X += (((runTime / 1000) * (runTime / 1000)) * 0.1f);
             }
-            if (kinetics.X > 255f)
+            if (kinetics.X > 250f)
             {
                 kinetics.X -= (((runTime / 1000) * (runTime / 1000)) * 0.1f);
             }
@@ -91,7 +91,7 @@ namespace RunnerAlpha.Code.Entities
 
             if (input.Up && !falling)
             {
-                kinetics.Y -= 100f;
+                kinetics.Y -= 50f;
             }
             if (input.Left)
             {

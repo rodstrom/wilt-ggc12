@@ -100,15 +100,6 @@
       <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Audio\Music\Level3.xnb</Output>
       <Time>2012-04-10T15:33:00.9233244+02:00</Time>
     </Item>
-    <Item>
-      <Source>Graphics\RunningSheet.png</Source>
-      <Name>Graphics\RunningSheet</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\RunningSheet.xnb</Output>
-      <Time>2012-04-24T21:47:02.1547854+02:00</Time>
-    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

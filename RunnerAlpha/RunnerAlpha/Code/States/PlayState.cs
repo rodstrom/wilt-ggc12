@@ -17,7 +17,7 @@ namespace RunnerAlpha.Code.States
     {
         EntityManager entityManager;
         
-        Texture2D background;
+        //Texture2D background;
 
         Vector2 guiPosition;
 
@@ -36,7 +36,7 @@ namespace RunnerAlpha.Code.States
 
             game.Timer.StartTimer();
 
-            background = game.Content.Load<Texture2D>(@"Graphics\Background");
+            //background = game.Content.Load<Texture2D>(@"Graphics\Background");
         }
 
         public override void Terminate()
@@ -134,7 +134,8 @@ namespace RunnerAlpha.Code.States
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, game.Camera.Transform);
 
-            spriteBatch.Draw(background, new Vector2(0, 0), Color.White);
+            //spriteBatch.Draw(background, new Vector2(0, 0), Color.White);
+            //spriteBatch.Draw(background, new Vector2(1920, 0), Color.White);
 
             entityManager.Draw(gameTime);
 

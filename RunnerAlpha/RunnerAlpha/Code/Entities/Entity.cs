@@ -12,6 +12,13 @@ namespace RunnerAlpha.Code.Entities
     {
         public Vector2 position;
 
+
+        public Boolean KillMe
+        {
+            get;
+            set;
+        }
+
         protected Runner Runner
         {
             get;
@@ -31,7 +38,7 @@ namespace RunnerAlpha.Code.Entities
         }
 
         public float Rotation
-        {
+        { 
             get;
             set;
         }
@@ -57,6 +64,7 @@ namespace RunnerAlpha.Code.Entities
             Origin = Vector2.Zero;
             Rotation = 0.0f;
             Layer = 1f;
+            KillMe = false;
         }
 
         public override void Update(GameTime gameTime)

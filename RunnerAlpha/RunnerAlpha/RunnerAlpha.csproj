@@ -117,7 +117,12 @@
     <Compile Include="Code\Graphics\AnimationFrame.cs" />
     <Compile Include="Code\Graphics\AnimationStrip.cs" />
     <Compile Include="Code\Graphics\Background.cs" />
+    <Compile Include="Code\Graphics\LineBatch.cs" />
     <Compile Include="Code\Input\InputFile.cs" />
+    <Compile Include="Code\Lines\ClimbLine.cs" />
+    <Compile Include="Code\Lines\GroundLine.cs" />
+    <Compile Include="Code\Lines\HangLine.cs" />
+    <Compile Include="Code\Lines\Line.cs" />
     <Compile Include="Code\States\HighScoreState.cs" />
     <Compile Include="Code\States\PlayState.cs" />
     <Compile Include="Code\States\State.cs" />

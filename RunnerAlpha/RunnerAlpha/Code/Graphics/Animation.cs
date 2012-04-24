@@ -21,7 +21,7 @@ namespace RunnerAlpha.Code.Graphics
             {
                 int x = (int)(position.X - Origin.X);
                 int y = (int)(position.Y - Origin.Y);
-                return new Rectangle(x, y, currentFrame.SourceTexture.Width, currentFrame.SourceTexture.Height);
+                return new Rectangle(x, y, currentFrame.SourceRectangle.Width, currentFrame.SourceRectangle.Height);
             }
         }
 

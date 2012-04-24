@@ -4,42 +4,103 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using RunnerAlpha.Code.Graphics;
 
 namespace RunnerAlpha.Code.Entities
 {
     class EntityManager
     {
-        public LinkedList<Entity> entityList = new LinkedList<Entity>();
+        Runner game;
+        SpriteBatch spriteBatch;
 
-        public Player player = null;
+        public Player player;
+        public LinkedList<Entity> entityList = new LinkedList<Entity>();
+        List<String> platformFiles = new List<String>();
+        Random random = new Random();
+
+        Background background;
         public Platform platform = null;
 
         public EntityManager(Runner game, SpriteBatch spriteBatch)
         {
+            this.game = game;
+            this.spriteBatch = spriteBatch;
+
             player = new Player(game, spriteBatch, new Vector2(10, 1080));
             player.Initialize();
             player.position = new Vector2(20, 1080);
             entityList.AddLast(player);
 
-            platform = new Platform(game, spriteBatch, @"Graphics\Start", new Vector2(90f, 1080));
+            platform = new Platform(game, spriteBatch, @"Graphics\Start", new Vector2(0f, 1200f));
             platform.Initialize();
             entityList.AddLast(platform);
 
-            platform = new Platform(game, spriteBatch, @"Graphics\buildingStupranna", new Vector2(800f, 1000));
-            platform.Initialize();
-            entityList.AddLast(platform);
+            background = new Background(@"Graphics\Background", spriteBatch, game);
+            background.Initialize();
 
-            platform = new Platform(game, spriteBatch, @"Graphics\buildingStupranna", new Vector2(800f, 1000));
-            platform.Initialize();
-            entityList.AddLast(platform);
+            platformFiles.Add(@"Graphics\3");
+            platformFiles.Add(@"Graphics\buildingDoor");
+            platformFiles.Add(@"Graphics\buildingStupranna");
+            platformFiles.Add(@"Graphics\Start");
 
-            platform = new Platform(game, spriteBatch, @"Graphics\3", new Vector2(1300f, 1150));
-            platform.Initialize();
-            entityList.AddLast(platform);
+            for (int i = 0; i < 9; i++)
+            {
+                entityList.AddLast(addPlatform());
+            }
+        }
 
-            platform = new Platform(game, spriteBatch, @"Graphics\buildingDoor", new Vector2(1870f, 1100));
+        private LinkedListNode<Entity> findFirstPlatform()
+        {
+            LinkedListNode<Entity> temp = entityList.First;
+            bool foundFirstPlatform = false;
+            do
+            {
+                if (temp.Value.GetType().Name.Equals("Platform"))
+                {
+                    return temp;
+                }
+                else
+                {
+                    temp = temp.Next;
+                }
+            } while (!foundFirstPlatform);
+            return null;
+        }
+
+        private LinkedListNode<Entity> findLastPlatform()
+        {
+            LinkedListNode<Entity> temp = entityList.Last;
+            bool foundLastPlatform = false;
+            do
+            {
+                if (temp.Value.GetType().Name.Equals("Platform"))
+                {
+                    return temp;
+                }
+                else
+                {
+                    temp = temp.Previous;
+                }
+            } while (!foundLastPlatform);
+            return null;
+        }
+
+        private void refreshPlatforms()
+        {
+            entityList.Remove(findFirstPlatform());
+            entityList.AddLast(addPlatform());
+        }
+
+        private Platform addPlatform()
+        {
+            string filename = platformFiles[random.Next(platformFiles.Count)];
+            Platform lastPlatform = (Platform)findLastPlatform().Value;
+            float posX = lastPlatform.position.X + lastPlatform.Rectangle.Width + 200f;
+            Vector2 position = new Vector2(posX, 1200f);
+
+            platform = new Platform(game, spriteBatch, filename, position);
             platform.Initialize();
-            entityList.AddLast(platform);
+            return platform;
         }
 
         public void Terminate()
@@ -51,9 +112,17 @@ namespace RunnerAlpha.Code.Entities
 
         public void Update(GameTime gameTime)
         {
+            background.position = new Vector2(game.Camera.Position.X - Runner.WIDTH / 2, 0f);
+
             foreach (Entity entity in entityList)
             {
                 entity.Update(gameTime);
+            }
+
+            Platform temp = (Platform) findFirstPlatform().Value;
+            if (temp.Rectangle.Right < game.Camera.Position.X - Runner.WIDTH / 2)
+            {
+                refreshPlatforms();
             }
 
             CollisionCheck();
@@ -61,6 +130,8 @@ namespace RunnerAlpha.Code.Entities
 
         public void Draw(GameTime gameTime)
         {
+            background.Draw(gameTime);
+
             foreach (Entity entity in entityList)
             {
                 entity.Draw(gameTime);
@@ -96,7 +167,7 @@ namespace RunnerAlpha.Code.Entities
         {
             if (player.position.X + player.Rectangle.Width / 2 > Runner.WIDTH)
             {
-                player.position.X = Runner.WIDTH - player.Rectangle.Width / 2;
+                //player.position.X = Runner.WIDTH - player.Rectangle.Width / 2;
             }
             if (player.position.X - player.Rectangle.Width / 2 < 0f)
             {
