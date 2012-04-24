@@ -41,7 +41,7 @@ namespace RunnerAlpha.Code.States
             String time = "This is le highscore!";
             if (inputCode > 0)
             {
-                text = "Congratulations, you won and got " + inputCode + " points!";
+                text = "Congratulations, you won and it took you " + inputCode + " seconds!";
             }
             else
             {

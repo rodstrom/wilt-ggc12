@@ -14,20 +14,27 @@ namespace RunnerAlpha.Code.Entities
         LinkedList<Platform> platforms = new LinkedList<Platform>();
         Rectangle goal;
 
-        LinkedList<GroundLine> groundLines = new LinkedList<GroundLine>();
+        //LinkedList<GroundLine> groundLines = new LinkedList<GroundLine>();
 
         public EntityManager(Runner game, SpriteBatch spriteBatch)
         {
-            player = new Player(game, spriteBatch, @"Graphics\running", new Vector2(100f));
+            player = new Player(game, spriteBatch, @"Graphics\running", new Vector2(50f, 500f));
 
             platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\Start", new Vector2(90f, 1080)));
             platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingStupranna", new Vector2(800f, 1000)));
             platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\3", new Vector2(1300f, 1150)));
             platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingDoor", new Vector2(1870f, 1100)));
 
-            groundLines.AddLast(new GroundLine(game, spriteBatch, new Rectangle(500, 500, 1500, 800)));
+            //groundLines.AddLast(new GroundLine(game, spriteBatch, new Rectangle(0, 995, 163, 995)));
+            //groundLines.AddLast(new GroundLine(game, spriteBatch, new Rectangle(163, 995, 265, 955)));
 
-            goal = new Rectangle(1850, 900, 200, 200);
+            //groundLines.AddLast(new GroundLine(game, spriteBatch, new Rectangle(763, 793, 945, 793)));
+
+            //groundLines.AddLast(new GroundLine(game, spriteBatch, new Rectangle(1195, 1075, 1405, 1075)));
+
+            //groundLines.AddLast(new GroundLine(game, spriteBatch, new Rectangle(1815, 975, 1920, 975)));
+
+            goal = new Rectangle(1870, 920, 1920, 975);
         }
 
         public void Terminate()
@@ -56,11 +63,6 @@ namespace RunnerAlpha.Code.Entities
             {
                 p.Draw();
             }
-
-            foreach (GroundLine gl in groundLines)
-            {
-                gl.Draw();
-            }
         }
 
         private void CollisionCheck()
@@ -69,7 +71,7 @@ namespace RunnerAlpha.Code.Entities
 
             Rectangle p = player.rect;
             player.falling = false;
-            foreach(Platform pl in platforms)
+            foreach (Platform pl in platforms)
             {
                 if (!(p.Intersects(pl.rect)))
                 {
@@ -82,8 +84,6 @@ namespace RunnerAlpha.Code.Entities
                     return;
                 }
             }
-
-            //INSERT LINE DETECTION, REMOVE PLATFORMS
 
             if (p.Intersects(goal))
             {
