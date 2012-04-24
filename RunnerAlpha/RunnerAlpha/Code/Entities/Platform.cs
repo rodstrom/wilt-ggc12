@@ -8,15 +8,20 @@ using Microsoft.Xna.Framework;
 
 namespace RunnerAlpha.Code.Entities
 {
-    class Platform : Entity
+    class Platform : Sprite
     {
+        string _filename;
 
         public Platform(Runner game, SpriteBatch spriteBatch, string filename, Vector2 position)
-            : base(game, spriteBatch, filename, position)
+            : base(spriteBatch, game)
         {
-
+            this.position = position;
+            _filename = filename;
         }
 
-
+        protected override void LoadContent()
+        {
+            SourceTexture = Game.Content.Load<Texture2D>(_filename);
+        }
     }
 }

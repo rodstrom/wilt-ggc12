@@ -130,13 +130,13 @@ namespace RunnerAlpha.Code.States
             }
         }
 
-        public override void Draw()
+        public override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, game.Camera.Transform);
 
             spriteBatch.Draw(background, new Vector2(0, 0), Color.White);
 
-            entityManager.Draw();
+            entityManager.Draw(gameTime);
 
             if (pause)
             {

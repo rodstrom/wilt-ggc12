@@ -10,7 +10,7 @@ namespace RunnerAlpha.Code.Graphics
     class Background : Sprite
     {
         public Background(String filename, SpriteBatch spriteBatch, Runner game)
-            : base(game, spriteBatch, filename)
+            : base(spriteBatch, game)
         {
         }
     }

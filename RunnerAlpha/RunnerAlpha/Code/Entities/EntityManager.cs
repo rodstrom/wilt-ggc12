@@ -9,52 +9,59 @@ namespace RunnerAlpha.Code.Entities
 {
     class EntityManager
     {
-        public Player player;
-        LinkedList<Platform> platforms = new LinkedList<Platform>();
-        Rectangle goal;
+        public LinkedList<Entity> entityList = new LinkedList<Entity>();
+
+        public Player player = null;
+        public Platform platform = null;
 
         public EntityManager(Runner game, SpriteBatch spriteBatch)
         {
-            player = new Player(game, spriteBatch, @"Graphics\running", new Vector2(100f, 900));
+            player = new Player(game, spriteBatch, new Vector2(10, 1080));
+            player.Initialize();
+            player.position = new Vector2(20, 1080);
+            entityList.AddLast(player);
 
-            for (int x = 0; x < 10; x++)
-            {
-                platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\3", new Vector2(90f + (208 * x), 1080f)));
-            }
+            platform = new Platform(game, spriteBatch, @"Graphics\Start", new Vector2(90f, 1080));
+            platform.Initialize();
+            entityList.AddLast(platform);
 
-            //platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\Start", new Vector2(90f, 1080)));
-            //platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingStupranna", new Vector2(800f, 1000)));
-            //platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\3", new Vector2(1300f, 1150)));
-            //platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingDoor", new Vector2(1870f, 1100)));
+            platform = new Platform(game, spriteBatch, @"Graphics\buildingStupranna", new Vector2(800f, 1000));
+            platform.Initialize();
+            entityList.AddLast(platform);
 
-            goal = new Rectangle(1850, 900, 200, 200);
+            platform = new Platform(game, spriteBatch, @"Graphics\buildingStupranna", new Vector2(800f, 1000));
+            platform.Initialize();
+            entityList.AddLast(platform);
+
+            platform = new Platform(game, spriteBatch, @"Graphics\3", new Vector2(1300f, 1150));
+            platform.Initialize();
+            entityList.AddLast(platform);
+
+            platform = new Platform(game, spriteBatch, @"Graphics\buildingDoor", new Vector2(1870f, 1100));
+            platform.Initialize();
+            entityList.AddLast(platform);
         }
 
         public void Terminate()
         {
-            player = null;
-            platforms.Clear();
+            entityList.Clear();
         }
 
         public void Update(GameTime gameTime)
         {
-            player.Update(gameTime);
-
-            foreach (Platform p in platforms)
+            foreach (Entity entity in entityList)
             {
-                p.Update(gameTime);
+                entity.Update(gameTime);
             }
 
             CollisionCheck();
         }
 
-        public void Draw()
+        public void Draw(GameTime gameTime)
         {
-            player.Draw();
-
-            foreach (Platform p in platforms)
+            foreach (Entity entity in entityList)
             {
-                p.Draw();
+                entity.Draw(gameTime);
             }
         }
 
@@ -62,43 +69,42 @@ namespace RunnerAlpha.Code.Entities
         {
             PlayerOutOfBoundsCheck();
 
-            Rectangle p = player.rect;
+            Rectangle p = player.Rectangle;
             player.falling = false;
-            foreach(Platform pl in platforms)
+            foreach(Entity entity in entityList)
             {
-                if (!(p.Intersects(pl.rect)))
+                if (entity.GetType().Name == "Platform")
                 {
-                    player.falling = true;
-                }
-                else if (p.Intersects(pl.rect))
-                {
-                    player.position.Y = (pl.rect.Y - p.Height / 2) + 2;
-                    player.falling = false;
-                    return;
+                    Platform tmpPlat = (Platform)entity;
+                    if (!(p.Intersects(tmpPlat.Rectangle)))
+                    {
+                        player.falling = true;
+                    }
+                    else if (p.Intersects(tmpPlat.Rectangle))
+                    {
+                        player.position.Y = (tmpPlat.Rectangle.Y - p.Height / 2) + 2;
+                        player.falling = false;
+                        return;
+                    }
                 }
             }
-
-            //if (p.Intersects(goal))
-            //{
-            //    player.win = true;
-            //}
         }
 
         private void PlayerOutOfBoundsCheck()
         {
-            if (player.position.X + player.rect.Width / 2 > Runner.WIDTH)
+            if (player.position.X + player.Rectangle.Width / 2 > Runner.WIDTH)
             {
-                player.position.X = Runner.WIDTH - player.rect.Width / 2;
+                player.position.X = Runner.WIDTH - player.Rectangle.Width / 2;
             }
-            if (player.position.X - player.rect.Width / 2 < 0f)
+            if (player.position.X - player.Rectangle.Width / 2 < 0f)
             {
-                player.position.X = player.rect.Width / 2;
+                player.position.X = player.Rectangle.Width / 2;
             }
-            if (player.position.Y + player.rect.Height / 2 > Runner.HEIGHT)
+            if (player.position.Y + player.Rectangle.Height / 2 > Runner.HEIGHT)
             {
                 player.lose = true;
             }
-            if (player.position.Y - player.rect.Height / 2 < -100f)
+            if (player.position.Y - player.Rectangle.Height / 2 < -100f)
             {
                 player.position.Y = -100f;
             }
