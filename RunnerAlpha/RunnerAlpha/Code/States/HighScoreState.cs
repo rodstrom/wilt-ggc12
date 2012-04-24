@@ -33,7 +33,7 @@ namespace RunnerAlpha.Code.States
             }
         }
 
-        public override void Draw()
+        public override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, Resolution.getTransformationMatrix());
 

@@ -8,36 +8,73 @@ using Microsoft.Xna.Framework;
 
 namespace RunnerAlpha.Code.Entities
 {
-    public class Entity
+    public class Entity : DrawableGameComponent
     {
-        public Runner game;
-        public Sprite sprite;
         public Vector2 position;
-        public Rectangle rect;
-        public Vector2 origin;
-        public float layer;
 
-        public Entity(Runner game, SpriteBatch spriteBatch, string filename, Vector2 position)
+
+        public Boolean KillMe
         {
-            this.game = game;
-            this.sprite = new Sprite(game, spriteBatch, filename);
-            this.position = position;
-
-            this.rect = new Rectangle((int)this.position.X, (int)this.position.Y, (int)this.sprite.Dimension.X, (int)this.sprite.Dimension.Y);
-            this.origin = this.sprite.Dimension / 2;
-            this.layer = 1f;
+            get;
+            set;
         }
 
-        public virtual void Update(GameTime gameTime)
+        protected Runner Runner
         {
-            this.sprite.Update(gameTime);
-            this.rect.X = (int)this.position.X;
-            this.rect.Y = (int)this.position.Y - (int)this.sprite.Dimension.Y;
+            get;
+            private set;
         }
 
-        public virtual void Draw()
+        protected SpriteBatch SpriteBatch
+        {
+            get;
+            private set;
+        }
+
+        public Vector2 Origin
+        {
+            get;
+            set;
+        }
+
+        public float Rotation
         { 
-            this.sprite.Draw(this.position, new Rectangle(0, 0, (int)this.sprite.Dimension.X, (int)this.sprite.Dimension.Y), Color.White, 0f, this.origin, 1f, SpriteEffects.None, this.layer, null);
+            get;
+            set;
+        }
+
+        //public Vector2 Position
+        //{
+        //    get { return position; }
+        //    set { position = value; }
+        //}
+
+        public float Layer
+        {
+            get;
+            set;
+        }
+
+        public Entity(Runner game, SpriteBatch spriteBatch)
+            : base(game)
+        {
+            Runner = game;
+            SpriteBatch = spriteBatch;
+            position = Vector2.Zero;
+            Origin = Vector2.Zero;
+            Rotation = 0.0f;
+            Layer = 1f;
+            KillMe = false;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
         }
 
     }

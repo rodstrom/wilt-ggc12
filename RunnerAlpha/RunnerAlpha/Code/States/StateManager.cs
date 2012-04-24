@@ -60,9 +60,9 @@ namespace RunnerAlpha.Code.States
             }
         }
 
-        public void Draw()
+        public void Draw(GameTime gameTime)
         {
-            currentState.Draw();
+            currentState.Draw(gameTime);
         }
     }
 }

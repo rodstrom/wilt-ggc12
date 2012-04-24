@@ -9,9 +9,17 @@ namespace RunnerAlpha.Code.Graphics
 {
     class Background : Sprite
     {
+        string _filename;
+
         public Background(String filename, SpriteBatch spriteBatch, Runner game)
-            : base(game, spriteBatch, filename)
+            : base(spriteBatch, game)
         {
+            _filename = filename;
+        }
+
+        protected override void LoadContent()
+        {
+            SourceTexture = Game.Content.Load<Texture2D>(_filename);
         }
     }
 }

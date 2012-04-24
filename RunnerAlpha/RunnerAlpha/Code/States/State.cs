@@ -36,7 +36,7 @@ namespace RunnerAlpha.Code.States
 
         public abstract void Terminate();
         public abstract void Update(GameTime gameTime);
-        public abstract void Draw();
+        public abstract void Draw(GameTime gameTime);
 
         public String ID
         {

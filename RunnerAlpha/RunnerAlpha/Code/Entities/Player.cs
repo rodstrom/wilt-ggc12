@@ -5,10 +5,11 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using RunnerAlpha.Code.Input;
+using RunnerAlpha.Code.Graphics;
 
 namespace RunnerAlpha.Code.Entities
 {
-    class Player : Entity
+    class Player : Animation
     {
         InputManager input;
 
@@ -22,28 +23,48 @@ namespace RunnerAlpha.Code.Entities
         public bool win = false;
         public bool lose = false;
 
-        public Player(Runner game, SpriteBatch spriteBatch, string filename, Vector2 position)
-            : base(game, spriteBatch, filename, position)
+        public Player(Runner game, SpriteBatch spriteBatch, Vector2 position)
+            : base(game, spriteBatch)
         {
             this.input = new InputManager(game);
             this.fallTime = 0f;
             this.runTime = 0f;
+            this.position = position;
             kinetics = Vector2.Zero;
+        }
+
+        protected override void LoadContent()
+        {
+            AnimationStrip _runningAnim = new AnimationStrip();
+            Texture2D _tmpSource = Game.Content.Load<Texture2D>(@"Graphics\RunningSheet");
+
+            for (int x = 0; x < 7; x++)
+            {
+                _runningAnim.AddFrame(new AnimationFrame(_tmpSource, new Rectangle(64 * x, 0, 64, 64)));
+            }
+            
+            _runningAnim.TimeOnChange = 50;
+            this.AddAnimation("Running", _runningAnim);
         }
 
         public override void Update(GameTime gameTime)
         {
+            if (this.AnimationName != "Running")
+            {
+                this.AnimationName = "Running";
+            }
+
             runTime += gameTime.ElapsedGameTime.Milliseconds;
 
             if (kinetics.X < 25)
             {
                 kinetics.X = 25;
             }
-            if (kinetics.X < 490f)
+            if (kinetics.X < 200f)
             {
                 kinetics.X += (((runTime / 1000) * (runTime / 1000)) * 0.1f);
             }
-            if (kinetics.X > 510f)
+            if (kinetics.X > 250f)
             {
                 kinetics.X -= (((runTime / 1000) * (runTime / 1000)) * 0.1f);
             }
@@ -70,7 +91,7 @@ namespace RunnerAlpha.Code.Entities
 
             if (input.Up && !falling)
             {
-                kinetics.Y -= 200f;
+                kinetics.Y -= 50f;
             }
             if (input.Left)
             {
@@ -78,7 +99,7 @@ namespace RunnerAlpha.Code.Entities
             }
             if (input.Space)
             {
-                game.AudioManager.PlayEffect("Jump");
+                Runner.AudioManager.PlayEffect("Jump");
             }
         }
     }

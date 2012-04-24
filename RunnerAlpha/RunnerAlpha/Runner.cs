@@ -113,7 +113,7 @@ namespace RunnerAlpha
         {
             GraphicsDevice.Clear(Color.Black);
 
-            stateManager.Draw();
+            stateManager.Draw(gameTime);
 
             base.Draw(gameTime);
         }
