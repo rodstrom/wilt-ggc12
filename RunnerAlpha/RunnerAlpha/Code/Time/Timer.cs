@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace RunnerAlpha.Code.Time
 {
-    class Timer : GameComponent
+    public class Timer : GameComponent
     {
         public List<Event> timerList = new List<Event>();
 

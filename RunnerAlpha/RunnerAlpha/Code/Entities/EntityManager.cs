@@ -15,12 +15,17 @@ namespace RunnerAlpha.Code.Entities
 
         public EntityManager(Runner game, SpriteBatch spriteBatch)
         {
-            player = new Player(game, spriteBatch, @"Graphics\running", new Vector2(100f));
+            player = new Player(game, spriteBatch, @"Graphics\running", new Vector2(100f, 900));
 
-            platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\Start", new Vector2(90f, 1080)));
-            platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingStupranna", new Vector2(800f, 1000)));
-            platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\3", new Vector2(1300f, 1150)));
-            platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingDoor", new Vector2(1870f, 1100)));
+            for (int x = 0; x < 10; x++)
+            {
+                platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\3", new Vector2(90f + (208 * x), 1080f)));
+            }
+
+            //platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\Start", new Vector2(90f, 1080)));
+            //platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingStupranna", new Vector2(800f, 1000)));
+            //platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\3", new Vector2(1300f, 1150)));
+            //platforms.AddLast(new Platform(game, spriteBatch, @"Graphics\buildingDoor", new Vector2(1870f, 1100)));
 
             goal = new Rectangle(1850, 900, 200, 200);
         }
@@ -73,10 +78,10 @@ namespace RunnerAlpha.Code.Entities
                 }
             }
 
-            if (p.Intersects(goal))
-            {
-                player.win = true;
-            }
+            //if (p.Intersects(goal))
+            //{
+            //    player.win = true;
+            //}
         }
 
         private void PlayerOutOfBoundsCheck()

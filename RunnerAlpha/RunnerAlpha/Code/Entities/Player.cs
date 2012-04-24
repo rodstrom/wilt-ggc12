@@ -11,9 +11,14 @@ namespace RunnerAlpha.Code.Entities
     class Player : Entity
     {
         InputManager input;
-        float fallTime;
 
-        public bool falling = false;
+        Vector2 kinetics;
+
+        float fallTime;
+        float runTime;
+
+        public bool falling;
+
         public bool win = false;
         public bool lose = false;
 
@@ -22,19 +27,37 @@ namespace RunnerAlpha.Code.Entities
         {
             this.input = new InputManager(game);
             this.fallTime = 0f;
+            this.runTime = 0f;
+            kinetics = Vector2.Zero;
         }
 
         public override void Update(GameTime gameTime)
         {
+            runTime += gameTime.ElapsedGameTime.Milliseconds;
+
+            if (kinetics.X < 25)
+            {
+                kinetics.X = 25;
+            }
+            if (kinetics.X < 490f)
+            {
+                kinetics.X += (((runTime / 1000) * (runTime / 1000)) * 0.1f);
+            }
+            if (kinetics.X > 510f)
+            {
+                kinetics.X -= (((runTime / 1000) * (runTime / 1000)) * 0.1f);
+            }
+
             if (falling)
             {
                 fallTime += gameTime.ElapsedGameTime.Milliseconds;
+                kinetics.Y += ((fallTime / 1000) * (fallTime / 1000) * 100);
             }
             else
             {
-                fallTime = 0f;
+                fallTime = 0;
             }
-
+            
             input.Update();
             Move(gameTime);
             base.Update(gameTime);
@@ -42,21 +65,16 @@ namespace RunnerAlpha.Code.Entities
 
         private void Move(GameTime gameTime)
         {
-            if (falling)
-            {
-                position.Y += (((fallTime / 1000) * (fallTime / 1000)) * 150);
-            }
+            position.Y += (kinetics.Y / 10);
+            position.X += (kinetics.X / 10);
 
+            if (input.Up && !falling)
+            {
+                kinetics.Y -= 100f;
+            }
             if (input.Left)
             {
-                position.X -= gameTime.ElapsedGameTime.Milliseconds * 0.7f;
-            }
-            if (input.Right)
-            {
-                position.X += gameTime.ElapsedGameTime.Milliseconds * 0.7f;
-            }
-            if (input.Up){
-                position.Y -= 25;
+                kinetics.X -= 50f;
             }
             if (input.Space)
             {

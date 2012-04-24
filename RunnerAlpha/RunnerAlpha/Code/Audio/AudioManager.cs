@@ -14,11 +14,22 @@ namespace RunnerAlpha.Code.Audio
 
         SoundEffectInstance activeMusic = null;
 
-        float musicVolume = 0.0f;
-        float effectVolume = 0.0f;
+        public float MusicVolume
+        {
+            get;
+            set;
+        }
+
+        public float EffectVolume
+        {
+            get;
+            set;
+        }
 
         public AudioManager(Runner game) : base(game)
         {
+            MusicVolume = (float.Parse(game.config.getValue("Audio", "MusicVolume")) / 100);
+            EffectVolume = (float.Parse(game.config.getValue("Audio", "EffectVolume")) / 100);
         }
 
         public void LoadNewEffect(String key, String effect)
@@ -45,6 +56,7 @@ namespace RunnerAlpha.Code.Audio
             SoundEffectInstance tmpEffect = effectList[key].CreateInstance();
             if (tmpEffect != null)
             {
+                tmpEffect.Volume = EffectVolume;
                 tmpEffect.Play();
             }
         }
@@ -71,6 +83,7 @@ namespace RunnerAlpha.Code.Audio
         public void SetMusic(String key)
         {
             activeMusic = musicList[key].CreateInstance();
+            activeMusic.Volume = MusicVolume;
             activeMusic.IsLooped = true;
         }
 
@@ -93,14 +106,6 @@ namespace RunnerAlpha.Code.Audio
             {
                 activeMusic.Pause();
             }
-        }
-
-        public void SetMusicVolume(float volume)
-        {
-        }
-
-        public void SetEffectsVolume(float volume)
-        {
         }
 
         public void FadeMusic(String nextTrack, float speed)

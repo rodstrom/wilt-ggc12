@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace RunnerAlpha.Code.Entities
 {
-    class Entity
+    public class Entity
     {
         public Runner game;
         public Sprite sprite;
