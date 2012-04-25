@@ -72,7 +72,7 @@ namespace RunnerAlpha.Code.Graphics
                                     Color,
                                     Rotation,
                                     Origin,
-                                    0.6f,
+                                    1.0f,
                                     SpriteEffects.None,
                                     0.0f);
             }

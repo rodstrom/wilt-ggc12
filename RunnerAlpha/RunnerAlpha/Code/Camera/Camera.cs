@@ -29,10 +29,19 @@ namespace RunnerAlpha.Code.Camera
             set;
         }
 
+        private float _zoom;
         public float Zoom
         {
-            get;
-            set;
+            get
+            {
+                return _zoom;
+            }
+            set
+            {
+                _zoom = value;
+                MathHelper.Clamp(Zoom, 0.1f, 5f);
+                Center = new Vector2(View.Width * (0.5f / Zoom), View.Height * (0.5f / Zoom));
+            }
         }
 
         public float Rotation
@@ -66,21 +75,21 @@ namespace RunnerAlpha.Code.Camera
             View = view;
             Zoom = zoom;
             Rotation = rotation;
-            Center = new Vector2(View.X / 2, View.Y / 2);
+            Center = new Vector2(View.Width * (0.5f / Zoom), View.Height * (0.5f / Zoom));
         }
 
         public override void Update(GameTime gameTime)
         {
             if (Focus != null)
             {
-                Position = Focus.position;
+                Position = new Vector2(Focus.position.X + Center.X / 2, Focus.position.Y);
             }
             Transform = Resolution.getTransformationMatrix();
             Transform = Matrix.Identity *
                 Matrix.CreateTranslation(-Position.X, -Position.Y, 0) *
                 Matrix.CreateRotationZ(Rotation) *
                 Matrix.CreateTranslation(Center.X, Center.Y, 0) *
-                Matrix.CreateScale(new Vector3(Zoom, Zoom, Zoom));
+                Matrix.CreateScale(new Vector3(Zoom));
         }
     }
 }

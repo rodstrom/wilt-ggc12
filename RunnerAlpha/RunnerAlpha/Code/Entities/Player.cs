@@ -36,7 +36,7 @@ namespace RunnerAlpha.Code.Entities
         protected override void LoadContent()
         {
             AnimationStrip _runningAnim = new AnimationStrip();
-            Texture2D _tmpSource = Game.Content.Load<Texture2D>(@"Graphics\RunningSheet");
+            Texture2D _tmpSource = Game.Content.Load<Texture2D>(@"Graphics\Spritesheets\RunningSheet");
 
             for (int x = 0; x < 7; x++)
             {

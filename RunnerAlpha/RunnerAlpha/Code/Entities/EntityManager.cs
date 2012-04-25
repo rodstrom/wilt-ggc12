@@ -31,19 +31,20 @@ namespace RunnerAlpha.Code.Entities
             player.position = new Vector2(20, 1080);
             entityList.AddLast(player);
 
-            platform = new Platform(game, spriteBatch, @"Graphics\Start", new Vector2(0f, 1200f));
+            platform = new Platform(game, spriteBatch, @"Graphics\Platforms\4", new Vector2(0f, 1200f));
             platform.Initialize();
             entityList.AddLast(platform);
 
-            background = new Background(@"Graphics\Background", spriteBatch, game);
+            background = new Background(@"Graphics\Backgrounds\Background", spriteBatch, game);
             background.Initialize();
 
-            platformFiles.Add(@"Graphics\3");
-            platformFiles.Add(@"Graphics\buildingDoor");
-            platformFiles.Add(@"Graphics\buildingStupranna");
-            platformFiles.Add(@"Graphics\Start");
+            platformFiles.Add(@"Graphics\Platforms\1");
+            platformFiles.Add(@"Graphics\Platforms\2");
+            platformFiles.Add(@"Graphics\Platforms\3");
+            platformFiles.Add(@"Graphics\Platforms\4");
+            platformFiles.Add(@"Graphics\Platforms\5");
 
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 5; i++)
             {
                 entityList.AddLast(addPlatform());
             }
@@ -96,7 +97,7 @@ namespace RunnerAlpha.Code.Entities
             string filename = platformFiles[random.Next(platformFiles.Count)];
             Platform lastPlatform = (Platform)findLastPlatform().Value;
             float posX = lastPlatform.position.X + lastPlatform.Rectangle.Width + 200f;
-            Vector2 position = new Vector2(posX, 1200f);
+            Vector2 position = new Vector2(posX, Runner.HEIGHT);
 
             platform = new Platform(game, spriteBatch, filename, position);
             platform.Initialize();
@@ -110,14 +111,14 @@ namespace RunnerAlpha.Code.Entities
 
         public void Update(GameTime gameTime)
         {
-            background.position = new Vector2(game.Camera.Position.X - Runner.WIDTH / 2, 0f);
+            background.position = new Vector2(game.Camera.Position.X - game.Camera.Center.X, -600f);
 
             foreach (Entity entity in entityList)
             {
                 entity.Update(gameTime);
             }
 
-            Platform temp = (Platform) findFirstPlatform().Value;
+            Platform temp = (Platform) findFirstPlatform().Next.Value;
             if (temp.Rectangle.Right < game.Camera.Position.X - Runner.WIDTH / 2)
             {
                 refreshPlatforms();
@@ -129,16 +130,23 @@ namespace RunnerAlpha.Code.Entities
         public void Draw(GameTime gameTime)
         {
             background.Draw(gameTime);
-
+            
             foreach (Entity entity in entityList)
             {
                 entity.Draw(gameTime);
             }
+            
+            LineBatch.DrawLine(spriteBatch, Color.Red,
+                new Vector2(game.Camera.Position.X - game.Camera.Center.X, Runner.HEIGHT),
+                new Vector2(game.Camera.Position.X + game.Camera.Center.X, Runner.HEIGHT));
         }
 
         private void CollisionCheck()
         {
-            PlayerOutOfBoundsCheck();
+            if (player.Rectangle.Bottom > Runner.HEIGHT)
+            {
+                player.lose = true;
+            }
 
             Rectangle p = player.Rectangle;
             player.falling = false;
@@ -158,26 +166,6 @@ namespace RunnerAlpha.Code.Entities
                         return;
                     }
                 }
-            }
-        }
-
-        private void PlayerOutOfBoundsCheck()
-        {
-            if (player.position.X + player.Rectangle.Width / 2 > Runner.WIDTH)
-            {
-                //player.position.X = Runner.WIDTH - player.Rectangle.Width / 2;
-            }
-            if (player.position.X - player.Rectangle.Width / 2 < 0f)
-            {
-                player.position.X = player.Rectangle.Width / 2;
-            }
-            if (player.position.Y + player.Rectangle.Height / 2 > Runner.HEIGHT)
-            {
-                player.lose = true;
-            }
-            if (player.position.Y - player.Rectangle.Height / 2 < -100f)
-            {
-                player.position.Y = -100f;
             }
         }
     }

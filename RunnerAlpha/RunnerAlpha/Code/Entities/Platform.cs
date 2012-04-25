@@ -22,7 +22,7 @@ namespace RunnerAlpha.Code.Entities
         protected override void LoadContent()
         {
             SourceTexture = Game.Content.Load<Texture2D>(_filename);
-            Origin = new Vector2(0f, base.SourceRectangle.Height);
+            Origin = new Vector2(0f, base.SourceRectangle.Height - 600f);
         }
     }
 }
