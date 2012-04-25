@@ -91,7 +91,7 @@ namespace RunnerAlpha.Code.Entities
 
             if (input.Up && !falling)
             {
-                kinetics.Y -= 50f;
+                kinetics.Y -= 80f;
             }
             if (input.Left)
             {

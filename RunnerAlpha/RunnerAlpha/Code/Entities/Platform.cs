@@ -16,7 +16,7 @@ namespace RunnerAlpha.Code.Entities
             : base(spriteBatch, game)
         {
             this.position = position;
-            _filename = filename;
+            this._filename = filename;
         }
 
         protected override void LoadContent()

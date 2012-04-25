@@ -64,15 +64,22 @@ namespace RunnerAlpha.Code.Graphics
 
         public override void Draw(GameTime gameTime)
         {
-            SpriteBatch.Draw(currentFrame.SourceTexture,
-                                position,
-                                currentFrame.SourceRectangle,
-                                Color,
-                                Rotation,
-                                Origin,
-                                1.0f,
-                                SpriteEffects.None,
-                                0.0f);
+            try
+            {
+                SpriteBatch.Draw(currentFrame.SourceTexture,
+                                    position,
+                                    currentFrame.SourceRectangle,
+                                    Color,
+                                    Rotation,
+                                    Origin,
+                                    0.6f,
+                                    SpriteEffects.None,
+                                    0.0f);
+            }
+            catch (System.NullReferenceException)
+            {
+                currentFrame = animationList[currentAnimation].getCurrentFrame(gameTime);
+            }
         }
     }
 }
