@@ -26,12 +26,11 @@ namespace RunnerAlpha.Code.Entities
             this.game = game;
             this.spriteBatch = spriteBatch;
 
-            player = new Player(game, spriteBatch, new Vector2(10, 1080));
+            player = new Player(game, spriteBatch, new Vector2(100f, 500));
             player.Initialize();
-            player.position = new Vector2(20, 1080);
             entityList.AddLast(player);
 
-            platform = new Platform(game, spriteBatch, @"Graphics\Platforms\4", new Vector2(0f, 1200f));
+            platform = new Platform(game, spriteBatch, @"Graphics\Platforms\1", new Vector2(game.Camera.Position.X - game.Camera.Center.X, Runner.HEIGHT));
             platform.Initialize();
             entityList.AddLast(platform);
 
@@ -39,10 +38,12 @@ namespace RunnerAlpha.Code.Entities
             background.Initialize();
 
             platformFiles.Add(@"Graphics\Platforms\1");
-            platformFiles.Add(@"Graphics\Platforms\2");
-            platformFiles.Add(@"Graphics\Platforms\3");
-            platformFiles.Add(@"Graphics\Platforms\4");
-            platformFiles.Add(@"Graphics\Platforms\5");
+            platformFiles.Add(@"Graphics\Platforms\2 (2)");
+            platformFiles.Add(@"Graphics\Platforms\3 (2)");
+            platformFiles.Add(@"Graphics\Platforms\b1");
+            platformFiles.Add(@"Graphics\Platforms\b4");
+            platformFiles.Add(@"Graphics\Platforms\c2");
+            platformFiles.Add(@"Graphics\Platforms\c3");
 
             for (int i = 0; i < 5; i++)
             {
@@ -111,7 +112,7 @@ namespace RunnerAlpha.Code.Entities
 
         public void Update(GameTime gameTime)
         {
-            background.position = new Vector2(game.Camera.Position.X - game.Camera.Center.X, -600f);
+            background.position = new Vector2(game.Camera.Position.X - game.Camera.Center.X, -1000f);
 
             foreach (Entity entity in entityList)
             {
@@ -119,7 +120,7 @@ namespace RunnerAlpha.Code.Entities
             }
 
             Platform temp = (Platform) findFirstPlatform().Next.Value;
-            if (temp.Rectangle.Right < game.Camera.Position.X - Runner.WIDTH / 2)
+            if (temp.Rectangle.Right < game.Camera.Position.X - game.Camera.Center.X)
             {
                 refreshPlatforms();
             }
