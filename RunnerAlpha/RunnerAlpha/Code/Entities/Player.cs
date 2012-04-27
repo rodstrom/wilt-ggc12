@@ -33,11 +33,11 @@ namespace RunnerAlpha.Code.Entities
             : base(game, spriteBatch)
         {
             this.input = new InputManager(game);
+            kineticVector = new KineticVector();
             this.fallTime = 0f;
             this.runTime = 0f;
             this.position = position;
             kinetics = Vector2.Zero;
-            kineticVector = new KineticVector();
         }
 
         protected override void LoadContent()
@@ -77,7 +77,7 @@ namespace RunnerAlpha.Code.Entities
                     else
                     {
                         kinetics.Y -= kineticVector.FinalVector.Y * 10;
-                        kinetics.X += kineticVector.FinalVector.X;
+                        kinetics.X -= kineticVector.FinalVector.X * 2;
                         snapShotIndex = 0;
                         Mouse.SetPosition(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2);
                         input.CurrentMouse = input.MouseOriginal;
@@ -92,13 +92,17 @@ namespace RunnerAlpha.Code.Entities
             MathHelper.Clamp(runTime, 0, 5000);
             MathHelper.Clamp(fallTime, 0, 5000);
 
-            if (kinetics.X < 1000f)
+            if (kinetics.X < 300f)
+            {
+                kinetics.X += ((runTime / 1000) * (runTime / 1000) * 2);
+            }
+            if (kinetics.X < 900f)
             {
                 kinetics.X += ((runTime / 1000) * (runTime /  1000));
             }
             if (kinetics.X > 1050f)
             {
-                kinetics.X -= ((runTime / 1000) * (runTime / 1000));
+                kinetics.X -= ((runTime / 1000) * (runTime / 1000) * 0.5f);
             }
 
             if (falling)

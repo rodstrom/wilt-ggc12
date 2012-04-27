@@ -10,7 +10,13 @@ namespace RunnerAlpha.Code.Physics
     class KineticVector
     {
         Vector2 K1, K2, finalVector, F;
-        float R, D;
+        //float R, D;
+
+        public MouseState OriginalMouseState
+        {
+            get;
+            set;
+        }
 
         public Vector2 FinalVector
         {
@@ -19,13 +25,14 @@ namespace RunnerAlpha.Code.Physics
 
         public KineticVector()
         {
+            OriginalMouseState = Mouse.GetState();
         }
 
         public Vector2 CalculateKineticVector()
         {
-            D = Vector2.Distance(K1, K2);
+            //D = Vector2.Distance(K1, K2);
 
-            R = (float)Math.Atan2(K2.Y - K1.Y, K2.X - K1.X);
+            //R = (float)Math.Atan2(K2.Y - K1.Y, K2.X - K1.X);
 
             F = K2 - K1;
 
@@ -37,8 +44,8 @@ namespace RunnerAlpha.Code.Physics
             bool calculated = false;
             if (snapshot == 0)
             {
-                K1.X = currentMouse.X;
-                K1.Y = currentMouse.Y;
+                K1.X = OriginalMouseState.X;
+                K1.Y = OriginalMouseState.Y;
             }
             if (snapshot == 1)
             {

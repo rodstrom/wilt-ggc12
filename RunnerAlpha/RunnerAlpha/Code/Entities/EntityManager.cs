@@ -18,7 +18,7 @@ namespace RunnerAlpha.Code.Entities
         List<String> platformFiles = new List<String>();
         Random random = new Random();
 
-        Background background;
+        Scrolling background;
         public Platform platform = null;
 
         public EntityManager(Runner game, SpriteBatch spriteBatch)
@@ -26,6 +26,31 @@ namespace RunnerAlpha.Code.Entities
             this.game = game;
             this.spriteBatch = spriteBatch;
 
+            //player = new Player(game, spriteBatch, new Vector2(10, 1080));
+            //player.Initialize();
+            //player.position = new Vector2(20, 1080);
+            //entityList.AddLast(player);
+
+            //platform = new Platform(game, spriteBatch, @"Graphics\Start", new Vector2(0f, 1200f));
+            //platform.Initialize();
+            //entityList.AddLast(platform);
+
+            //background = new Background(@"Graphics\Background", spriteBatch, game);
+            //background.Initialize();
+
+            //platformFiles.Add(@"Graphics\3");
+            //platformFiles.Add(@"Graphics\buildingDoor");
+            //platformFiles.Add(@"Graphics\buildingStupranna");
+            //platformFiles.Add(@"Graphics\Start");
+
+            //for (int i = 0; i < 9; i++)
+            //{
+            //    entityList.AddLast(addPlatform());
+            //}
+        }
+
+        public void Initialize()
+        {
             player = new Player(game, spriteBatch, new Vector2(10, 1080));
             player.Initialize();
             player.position = new Vector2(20, 1080);
@@ -35,10 +60,17 @@ namespace RunnerAlpha.Code.Entities
             platform.Initialize();
             entityList.AddLast(platform);
 
-            background = new Background(@"Graphics\Background", spriteBatch, game);
-            background.Initialize();
+            background = new Scrolling(game.Camera.View, game, spriteBatch);
+            background.Camera = game.Camera;
 
-            platformFiles.Add(@"Graphics\3");
+            background.AddBackground(@"Graphics\1");
+            background.AddBackground(@"Graphics\2");
+            background.AddBackground(@"Graphics\3");
+            background.AddBackground(@"Graphics\4");
+
+            background.LoadContent();
+
+            platformFiles.Add(@"Graphics\chimneyroof");
             platformFiles.Add(@"Graphics\buildingDoor");
             platformFiles.Add(@"Graphics\buildingStupranna");
             platformFiles.Add(@"Graphics\Start");
@@ -95,7 +127,7 @@ namespace RunnerAlpha.Code.Entities
         {
             string filename = platformFiles[random.Next(platformFiles.Count)];
             Platform lastPlatform = (Platform)findLastPlatform().Value;
-            float posX = lastPlatform.position.X + lastPlatform.Rectangle.Width + 200f;
+            float posX = lastPlatform.position.X + lastPlatform.Rectangle.Width + random.Next(100, 200);
             Vector2 position = new Vector2(posX, 1200f);
 
             platform = new Platform(game, spriteBatch, filename, position);
@@ -112,7 +144,7 @@ namespace RunnerAlpha.Code.Entities
 
         public void Update(GameTime gameTime)
         {
-            background.position = new Vector2(game.Camera.Position.X - Runner.WIDTH / 2, 0f);
+            background.Update(gameTime, 200, Scrolling.scrollDirection.Left);
 
             foreach (Entity entity in entityList)
             {
