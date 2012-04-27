@@ -90,7 +90,7 @@ namespace RunnerAlpha
                 );
 
             Viewport view = new Viewport(0, 0, 1280, 800);
-            camera = new Camera2D(view, this);
+            camera = new Camera2D(view, 0.5f, 0f, this);
 
             stateManager = new StateManager(this);
         }

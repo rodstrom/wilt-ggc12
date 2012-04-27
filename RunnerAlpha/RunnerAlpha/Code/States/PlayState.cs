@@ -51,8 +51,8 @@ namespace RunnerAlpha.Code.States
             inputManager.Update();
 
             game.Camera.Update(gameTime);
-            guiPosition.X = game.Camera.Position.X - game.Camera.View.Width / 3;
-            guiPosition.Y = game.Camera.Position.Y - game.Camera.View.Height / 3;
+            guiPosition.X = game.Camera.Position.X - game.Camera.Center.X + 20;
+            guiPosition.Y = game.Camera.Position.Y - game.Camera.Center.Y + 10;
 
 
             if (inputManager.Pause)
@@ -145,7 +145,7 @@ namespace RunnerAlpha.Code.States
             }
             int time = (int)game.Timer.MainEvent.currentTime;
 
-            spriteBatch.DrawString(font, (time / 1000).ToString(), guiPosition, Color.Red);
+            spriteBatch.DrawString(font, (time / 1000).ToString(), guiPosition, Color.Red, 0f, Vector2.Zero, 0.5f / game.Camera.Zoom, SpriteEffects.None, 1f);
 
             //spriteBatch.DrawString(font, "Kinetic X: " + entityManager.player.kinetics.X.ToString() + System.Environment.NewLine + "Kinetic Y: " + entityManager.player.kinetics.Y.ToString(), new Vector2(game.Camera.Position.X - 150, game.Camera.Position.Y + 200), Color.Red);
             

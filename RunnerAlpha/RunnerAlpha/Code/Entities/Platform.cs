@@ -16,13 +16,13 @@ namespace RunnerAlpha.Code.Entities
             : base(spriteBatch, game)
         {
             this.position = position;
-            _filename = filename;
+            this._filename = filename;
         }
 
         protected override void LoadContent()
         {
             SourceTexture = Game.Content.Load<Texture2D>(_filename);
-            Origin = new Vector2(0f, base.SourceRectangle.Height);
+            Origin = new Vector2(0f, base.SourceRectangle.Height - 800f);
         }
     }
 }
