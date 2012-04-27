@@ -62,7 +62,7 @@ namespace RunnerAlpha
 
         protected override void Initialize()
         {
-            this.IsMouseVisible = true;
+            //this.IsMouseVisible = true;
 
             base.Initialize();
         }
