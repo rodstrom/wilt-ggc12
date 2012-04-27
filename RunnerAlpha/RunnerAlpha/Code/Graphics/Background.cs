@@ -11,10 +11,11 @@ namespace RunnerAlpha.Code.Graphics
     {
         string _filename;
 
-        public Background(String filename, SpriteBatch spriteBatch, Runner game)
+        public Background(String filename, SpriteBatch spriteBatch, Runner game, Vector2 position)
             : base(spriteBatch, game)
         {
             _filename = filename;
+            base.position = position;
         }
 
         protected override void LoadContent()

@@ -15,10 +15,10 @@ namespace RunnerAlpha.Code.Entities
 
         public Player player;
         public LinkedList<Entity> entityList = new LinkedList<Entity>();
+        public LinkedList<Background> backgroundList = new LinkedList<Background>();
         List<String> platformFiles = new List<String>();
         Random random = new Random();
 
-        Background background;
         public Platform platform = null;
 
         public EntityManager(Runner game, SpriteBatch spriteBatch)
@@ -26,16 +26,19 @@ namespace RunnerAlpha.Code.Entities
             this.game = game;
             this.spriteBatch = spriteBatch;
 
-            player = new Player(game, spriteBatch, new Vector2(100f, 500));
+            player = new Player(game, spriteBatch, new Vector2(100f));
             player.Initialize();
             entityList.AddLast(player);
 
-            platform = new Platform(game, spriteBatch, @"Graphics\Platforms\1", new Vector2(game.Camera.Position.X - game.Camera.Center.X, Runner.HEIGHT));
+            platform = new Platform(game, spriteBatch, @"Graphics\Platforms\b1", new Vector2(-100f, Runner.HEIGHT));
             platform.Initialize();
             entityList.AddLast(platform);
 
-            background = new Background(@"Graphics\Backgrounds\Background", spriteBatch, game);
+            Background background = new Background(@"Graphics\Backgrounds\Background", spriteBatch, game, new Vector2(-Runner.WIDTH / 2, -Runner.HEIGHT));
             background.Initialize();
+            backgroundList.AddLast(background);
+            backgroundList.AddLast(addBackground());
+            backgroundList.AddLast(addBackground());
 
             platformFiles.Add(@"Graphics\Platforms\1");
             platformFiles.Add(@"Graphics\Platforms\2 (2)");
@@ -51,13 +54,13 @@ namespace RunnerAlpha.Code.Entities
             }
         }
 
-        private LinkedListNode<Entity> findFirstPlatform()
+        private LinkedListNode<Entity> findFirstOfType(String type)
         {
             LinkedListNode<Entity> temp = entityList.First;
             bool foundFirstPlatform = false;
             do
             {
-                if (temp.Value.GetType().Name.Equals("Platform"))
+                if (temp.Value.GetType().Name.Equals(type))
                 {
                     return temp;
                 }
@@ -69,13 +72,13 @@ namespace RunnerAlpha.Code.Entities
             return null;
         }
 
-        private LinkedListNode<Entity> findLastPlatform()
+        private LinkedListNode<Entity> findLastOfType(String type)
         {
             LinkedListNode<Entity> temp = entityList.Last;
             bool foundLastPlatform = false;
             do
             {
-                if (temp.Value.GetType().Name.Equals("Platform"))
+                if (temp.Value.GetType().Name.Equals(type))
                 {
                     return temp;
                 }
@@ -89,20 +92,35 @@ namespace RunnerAlpha.Code.Entities
 
         private void refreshPlatforms()
         {
-            entityList.Remove(findFirstPlatform());
+            entityList.Remove(findFirstOfType("Platform"));
             entityList.AddLast(addPlatform());
         }
 
         private Platform addPlatform()
         {
             string filename = platformFiles[random.Next(platformFiles.Count)];
-            Platform lastPlatform = (Platform)findLastPlatform().Value;
+            Platform lastPlatform = (Platform)findLastOfType("Platform").Value;
             float posX = lastPlatform.position.X + lastPlatform.Rectangle.Width + 200f;
             Vector2 position = new Vector2(posX, Runner.HEIGHT);
 
             platform = new Platform(game, spriteBatch, filename, position);
             platform.Initialize();
             return platform;
+        }
+
+        private void refreshBackgrounds()
+        {
+            backgroundList.RemoveFirst();
+            backgroundList.AddLast(addBackground());
+        }
+
+        private Background addBackground()
+        {
+            Vector2 position = new Vector2(backgroundList.Last.Value.Rectangle.Right, -Runner.HEIGHT);
+
+            Background background = new Background(@"Graphics\Backgrounds\Background", spriteBatch, game, position);
+            background.Initialize();
+            return background;
         }
 
         public void Terminate()
@@ -112,17 +130,20 @@ namespace RunnerAlpha.Code.Entities
 
         public void Update(GameTime gameTime)
         {
-            background.position = new Vector2(game.Camera.Position.X - game.Camera.Center.X, -1000f);
-
             foreach (Entity entity in entityList)
             {
                 entity.Update(gameTime);
             }
 
-            Platform temp = (Platform) findFirstPlatform().Next.Value;
-            if (temp.Rectangle.Right < game.Camera.Position.X - game.Camera.Center.X)
+            Platform tempPlatform = (Platform)findFirstOfType("Platform").Next.Value;
+            if (tempPlatform.Rectangle.Right < game.Camera.Position.X - game.Camera.Center.X / 2)
             {
                 refreshPlatforms();
+            }
+
+            if (backgroundList.First.Value.Rectangle.Right < game.Camera.Position.X - game.Camera.Center.X)
+            {
+                refreshBackgrounds();
             }
 
             CollisionCheck();
@@ -130,13 +151,16 @@ namespace RunnerAlpha.Code.Entities
 
         public void Draw(GameTime gameTime)
         {
-            background.Draw(gameTime);
-            
+            foreach (Background background in backgroundList)
+            {
+                background.Draw(gameTime);
+            }
+
             foreach (Entity entity in entityList)
             {
                 entity.Draw(gameTime);
             }
-            
+
             LineBatch.DrawLine(spriteBatch, Color.Red,
                 new Vector2(game.Camera.Position.X - game.Camera.Center.X, Runner.HEIGHT),
                 new Vector2(game.Camera.Position.X + game.Camera.Center.X, Runner.HEIGHT));
