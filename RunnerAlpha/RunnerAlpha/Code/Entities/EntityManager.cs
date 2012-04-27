@@ -25,7 +25,10 @@ namespace RunnerAlpha.Code.Entities
         {
             this.game = game;
             this.spriteBatch = spriteBatch;
+        }
 
+        public void Initialize()
+        {
             player = new Player(game, spriteBatch, new Vector2(100f));
             player.Initialize();
             entityList.AddLast(player);
@@ -100,7 +103,7 @@ namespace RunnerAlpha.Code.Entities
         {
             string filename = platformFiles[random.Next(platformFiles.Count)];
             Platform lastPlatform = (Platform)findLastOfType("Platform").Value;
-            float posX = lastPlatform.position.X + lastPlatform.Rectangle.Width + 200f;
+            float posX = lastPlatform.position.X + lastPlatform.Rectangle.Width + random.Next(100, 200);
             Vector2 position = new Vector2(posX, Runner.HEIGHT);
 
             platform = new Platform(game, spriteBatch, filename, position);
@@ -125,6 +128,8 @@ namespace RunnerAlpha.Code.Entities
 
         public void Terminate()
         {
+            player = null;
+            platform = null;
             entityList.Clear();
         }
 
@@ -160,10 +165,6 @@ namespace RunnerAlpha.Code.Entities
             {
                 entity.Draw(gameTime);
             }
-
-            LineBatch.DrawLine(spriteBatch, Color.Red,
-                new Vector2(game.Camera.Position.X - game.Camera.Center.X, Runner.HEIGHT),
-                new Vector2(game.Camera.Position.X + game.Camera.Center.X, Runner.HEIGHT));
         }
 
         private void CollisionCheck()

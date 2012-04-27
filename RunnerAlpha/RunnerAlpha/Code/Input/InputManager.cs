@@ -3,13 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
 
 namespace RunnerAlpha.Code.Input
 {
     class InputManager
     {
+        Runner Game;
+
         KeyboardState lastKey;
         KeyboardState currentKey;
+
+        public float inputLock = 0.0f;
+
+        MouseState currentMouseState, lastMouseState, originalMouseState;
+
+        Vector2 mouseAbsolute = Vector2.Zero;
+        Vector2 mouseRelative = Vector2.Zero;
 
         Keys up;
         Keys right;
@@ -19,8 +29,32 @@ namespace RunnerAlpha.Code.Input
         Keys pause;
         Keys space;
 
+        public Vector2 MouseAbsolute
+        {
+            get { return mouseAbsolute; }
+        }
+
+        public Vector2 MouseRelative
+        {
+            get { return mouseRelative; }
+        }
+
+        public MouseState MouseOriginal
+        {
+            get { return originalMouseState; }
+        }
+
+        public MouseState CurrentMouse
+        {
+            get { return currentMouseState; }
+            set { currentMouseState = value; }
+        }
+
         public InputManager(Runner game)
         {
+            Game = game; 
+            Mouse.SetPosition(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2);
+            originalMouseState = Mouse.GetState();
             up = setKey(game.config.getValue("Controls", "Up"));
             right = setKey(game.config.getValue("Controls", "Right"));
             left = setKey(game.config.getValue("Controls", "Left"));
@@ -45,6 +79,9 @@ namespace RunnerAlpha.Code.Input
         {
             lastKey = currentKey;
             currentKey = Keyboard.GetState();
+
+            lastMouseState = currentMouseState;
+            currentMouseState = Mouse.GetState();
         }
         
         public bool Up

@@ -30,13 +30,12 @@ namespace RunnerAlpha.Code.States
             : base(game, id)
         {
             entityManager = new EntityManager(game, spriteBatch);
+            entityManager.Initialize();
             game.Camera.Focus = entityManager.player;
 
             nextState = "HighScoreState";
 
             game.Timer.StartTimer();
-
-            //background = game.Content.Load<Texture2D>(@"Graphics\Background");
         }
 
         public override void Terminate()
@@ -80,11 +79,11 @@ namespace RunnerAlpha.Code.States
                 game.Camera.Zoom -= 0.01f;
             }
 
-            if (entityManager.player.win)
-            {
-                outputCode = score;
-                changeState = true;
-            }
+            //if (entityManager.player.win)
+            //{
+            //    outputCode = score;
+            //    changeState = true;
+            //}
             else if (entityManager.player.lose)
             {
                 outputCode = -1;
@@ -137,6 +136,7 @@ namespace RunnerAlpha.Code.States
             //spriteBatch.Draw(background, new Vector2(0, 0), Color.White);
             //spriteBatch.Draw(background, new Vector2(1920, 0), Color.White);
 
+            
             entityManager.Draw(gameTime);
 
             if (pause)
@@ -147,6 +147,8 @@ namespace RunnerAlpha.Code.States
 
             spriteBatch.DrawString(font, (time / 1000).ToString(), guiPosition, Color.Red, 0f, Vector2.Zero, 0.5f / game.Camera.Zoom, SpriteEffects.None, 1f);
 
+            spriteBatch.DrawString(font, "Kinetic X: " + entityManager.player.kinetics.X.ToString() + System.Environment.NewLine + "Kinetic Y: " + entityManager.player.kinetics.Y.ToString(), new Vector2(game.Camera.Position.X - 150, game.Camera.Position.Y + 200), Color.Red);
+            
             spriteBatch.End();
         }
 

@@ -6,17 +6,23 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using RunnerAlpha.Code.Input;
 using RunnerAlpha.Code.Graphics;
+using RunnerAlpha.Code.Physics;
+using Microsoft.Xna.Framework.Input;
 
 namespace RunnerAlpha.Code.Entities
 {
     class Player : Animation
     {
         InputManager input;
+        KineticVector kineticVector;
 
-        Vector2 kinetics;
+        public Vector2 kinetics;
 
-        float fallTime;
-        float runTime;
+        public float fallTime;
+        public float runTime;
+
+        float snapShotTimer = 0.0f;
+        int snapShotIndex = 0;
 
         public bool falling;
 
@@ -27,6 +33,7 @@ namespace RunnerAlpha.Code.Entities
             : base(game, spriteBatch)
         {
             this.input = new InputManager(game);
+            kineticVector = new KineticVector();
             this.fallTime = 0f;
             this.runTime = 0f;
             this.position = position;
@@ -54,19 +61,48 @@ namespace RunnerAlpha.Code.Entities
                 this.AnimationName = "Running";
             }
 
+            if (input.CurrentMouse != input.MouseOriginal)
+            {
+                if (snapShotTimer > 0)
+                {
+                    snapShotTimer -= gameTime.ElapsedGameTime.Milliseconds;
+                }
+                else
+                {
+                    if (!kineticVector.ReceivedInput(snapShotIndex, input.CurrentMouse))
+                    {
+                        snapShotTimer = 25;
+                        snapShotIndex++;
+                    }
+                    else
+                    {
+                        kinetics.Y -= kineticVector.FinalVector.Y * 10;
+                        kinetics.X -= kineticVector.FinalVector.X * 2;
+                        snapShotIndex = 0;
+                        Mouse.SetPosition(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2);
+                        input.CurrentMouse = input.MouseOriginal;
+                    }
+                }
+            }
+
             runTime += gameTime.ElapsedGameTime.Milliseconds;
 
-            if (kinetics.X < 25)
+            //MathHelper.Clamp(kinetics.X, -100, 50);
+            //MathHelper.Clamp(kinetics.Y, -500, 50);
+            MathHelper.Clamp(runTime, 0, 5000);
+            MathHelper.Clamp(fallTime, 0, 5000);
+
+            if (kinetics.X < 300f)
             {
-                kinetics.X = 25;
+                kinetics.X += ((runTime / 1000) * (runTime / 1000) * 2);
             }
-            if (kinetics.X < 200f)
+            if (kinetics.X < 900f)
             {
-                kinetics.X += (((runTime / 1000) * (runTime / 1000)) * 0.1f);
+                kinetics.X += ((runTime / 1000) * (runTime /  1000));
             }
-            if (kinetics.X > 250f)
+            if (kinetics.X > 1050f)
             {
-                kinetics.X -= (((runTime / 1000) * (runTime / 1000)) * 0.1f);
+                kinetics.X -= ((runTime / 1000) * (runTime / 1000) * 0.5f);
             }
 
             if (falling)
@@ -77,8 +113,16 @@ namespace RunnerAlpha.Code.Entities
             else
             {
                 fallTime = 0;
+                kinetics.Y = 0;
             }
-            
+
+            if (input.MouseRelative.Y < 0 && !falling)
+            {
+                position.Y -= 5;
+
+                //Runner.AudioManager.PlayEffect("Jump");
+            }
+
             input.Update();
             Move(gameTime);
             base.Update(gameTime);
@@ -86,21 +130,8 @@ namespace RunnerAlpha.Code.Entities
 
         private void Move(GameTime gameTime)
         {
-            position.Y += (kinetics.Y / 10);
-            position.X += (kinetics.X / 10);
-
-            if (input.Up && !falling)
-            {
-                kinetics.Y -= 80f;
-            }
-            if (input.Left)
-            {
-                kinetics.X -= 50f;
-            }
-            if (input.Space)
-            {
-                Runner.AudioManager.PlayEffect("Jump");
-            }
+            position.X += (kinetics.X * (float)gameTime.ElapsedGameTime.TotalSeconds);
+            position.Y += (kinetics.Y * (float)gameTime.ElapsedGameTime.TotalSeconds);
         }
     }
 }
