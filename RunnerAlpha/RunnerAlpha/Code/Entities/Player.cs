@@ -76,7 +76,7 @@ namespace RunnerAlpha.Code.Entities
                     }
                     else
                     {
-                        kinetics.Y -= kineticVector.FinalVector.Y * 10;
+                        kinetics.Y -= kineticVector.FinalVector.Y * 3;
                         kinetics.X -= kineticVector.FinalVector.X * 2;
                         snapShotIndex = 0;
                         Mouse.SetPosition(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2);
@@ -108,7 +108,7 @@ namespace RunnerAlpha.Code.Entities
             if (falling)
             {
                 fallTime += gameTime.ElapsedGameTime.Milliseconds;
-                kinetics.Y += ((fallTime / 1000) * (fallTime / 1000) * 100);
+                kinetics.Y += ((fallTime / 1000) * (fallTime / 1000) * 500);
             }
             else
             {

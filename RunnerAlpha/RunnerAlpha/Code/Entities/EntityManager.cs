@@ -20,7 +20,7 @@ namespace RunnerAlpha.Code.Entities
         Random random = new Random();
 
         public Platform platform = null;
-
+        
         public EntityManager(Runner game, SpriteBatch spriteBatch)
         {
             this.game = game;
@@ -37,7 +37,7 @@ namespace RunnerAlpha.Code.Entities
             platform.Initialize();
             entityList.AddLast(platform);
 
-            Background background = new Background(@"Graphics\Backgrounds\Background", spriteBatch, game, new Vector2(-Runner.WIDTH / 2, -Runner.HEIGHT));
+            Background background = new Background(@"Graphics\Backgrounds\Background", spriteBatch, game, new Vector2(-Runner.WIDTH / 2, -Runner.HEIGHT + 300f));
             background.Initialize();
             backgroundList.AddLast(background);
             backgroundList.AddLast(addBackground());
@@ -103,8 +103,8 @@ namespace RunnerAlpha.Code.Entities
         {
             string filename = platformFiles[random.Next(platformFiles.Count)];
             Platform lastPlatform = (Platform)findLastOfType("Platform").Value;
-            float posX = lastPlatform.position.X + lastPlatform.Rectangle.Width + random.Next(100, 200);
-            Vector2 position = new Vector2(posX, Runner.HEIGHT);
+            float posX = lastPlatform.position.X + lastPlatform.Rectangle.Width + random.Next(300, 800);
+            Vector2 position = new Vector2(posX, Runner.HEIGHT + 300f);
 
             platform = new Platform(game, spriteBatch, filename, position);
             platform.Initialize();
@@ -119,7 +119,7 @@ namespace RunnerAlpha.Code.Entities
 
         private Background addBackground()
         {
-            Vector2 position = new Vector2(backgroundList.Last.Value.Rectangle.Right, -Runner.HEIGHT);
+            Vector2 position = new Vector2(backgroundList.Last.Value.Rectangle.Right, -Runner.HEIGHT + 300f);
 
             Background background = new Background(@"Graphics\Backgrounds\Background", spriteBatch, game, position);
             background.Initialize();
@@ -138,6 +138,11 @@ namespace RunnerAlpha.Code.Entities
             foreach (Entity entity in entityList)
             {
                 entity.Update(gameTime);
+            }
+
+            foreach (Background background in backgroundList)
+            {
+                background.Update(gameTime);
             }
 
             Platform tempPlatform = (Platform)findFirstOfType("Platform").Next.Value;
