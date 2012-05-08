@@ -22,5 +22,12 @@ namespace RunnerAlpha.Code.Graphics
         {
             SourceTexture = Game.Content.Load<Texture2D>(_filename);
         }
+
+        public override void Update(GameTime gameTime)
+        {
+            position.X -= 1f;
+
+            base.Update(gameTime);
+        }
     }
 }

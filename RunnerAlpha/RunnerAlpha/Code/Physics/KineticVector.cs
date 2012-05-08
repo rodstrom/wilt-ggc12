@@ -26,6 +26,8 @@ namespace RunnerAlpha.Code.Physics
         public KineticVector()
         {
             OriginalMouseState = Mouse.GetState();
+            K1.X = OriginalMouseState.X;
+            K1.Y = OriginalMouseState.Y;
         }
 
         public Vector2 CalculateKineticVector()
@@ -42,11 +44,6 @@ namespace RunnerAlpha.Code.Physics
         public bool ReceivedInput(int snapshot, MouseState currentMouse)
         {
             bool calculated = false;
-            if (snapshot == 0)
-            {
-                K1.X = OriginalMouseState.X;
-                K1.Y = OriginalMouseState.Y;
-            }
             if (snapshot == 1)
             {
                 K2.X = currentMouse.X;

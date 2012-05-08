@@ -76,7 +76,7 @@ namespace RunnerAlpha.Code.Entities
                     }
                     else
                     {
-                        kinetics.Y -= kineticVector.FinalVector.Y * 10;
+                        kinetics.Y -= kineticVector.FinalVector.Y * 3;
                         kinetics.X -= kineticVector.FinalVector.X * 2;
                         snapShotIndex = 0;
                         Mouse.SetPosition(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2);
@@ -118,7 +118,7 @@ namespace RunnerAlpha.Code.Entities
 
             if (input.MouseRelative.Y < 0 && !falling)
             {
-                position.Y -= 5;
+                position.Y -= 10;
 
                 //Runner.AudioManager.PlayEffect("Jump");
             }

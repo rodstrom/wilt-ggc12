@@ -103,8 +103,8 @@ namespace RunnerAlpha.Code.Entities
         {
             string filename = platformFiles[random.Next(platformFiles.Count)];
             Platform lastPlatform = (Platform)findLastOfType("Platform").Value;
-            float posX = lastPlatform.position.X + lastPlatform.Rectangle.Width + random.Next(100, 200);
-            Vector2 position = new Vector2(posX, Runner.HEIGHT);
+            float posX = lastPlatform.position.X + lastPlatform.Rectangle.Width + random.Next(300, 600);
+            Vector2 position = new Vector2(posX, Runner.HEIGHT + 300f);
 
             platform = new Platform(game, spriteBatch, filename, position);
             platform.Initialize();
@@ -119,7 +119,7 @@ namespace RunnerAlpha.Code.Entities
 
         private Background addBackground()
         {
-            Vector2 position = new Vector2(backgroundList.Last.Value.Rectangle.Right, -Runner.HEIGHT);
+            Vector2 position = new Vector2(backgroundList.Last.Value.Rectangle.Right, -Runner.HEIGHT + 400f);
 
             Background background = new Background(@"Graphics\Backgrounds\Background", spriteBatch, game, position);
             background.Initialize();
@@ -135,6 +135,11 @@ namespace RunnerAlpha.Code.Entities
 
         public void Update(GameTime gameTime)
         {
+            foreach (Background background in backgroundList)
+            {
+                background.Update(gameTime);
+            }
+
             foreach (Entity entity in entityList)
             {
                 entity.Update(gameTime);
