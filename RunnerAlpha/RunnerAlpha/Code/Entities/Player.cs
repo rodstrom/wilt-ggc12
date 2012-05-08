@@ -108,7 +108,7 @@ namespace RunnerAlpha.Code.Entities
             if (falling)
             {
                 fallTime += gameTime.ElapsedGameTime.Milliseconds;
-                kinetics.Y += ((fallTime / 1000) * (fallTime / 1000) * 100);
+                kinetics.Y += ((fallTime / 1000) * (fallTime / 1000) * 500);
             }
             else
             {

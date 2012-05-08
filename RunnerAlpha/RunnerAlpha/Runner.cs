@@ -89,8 +89,13 @@ namespace RunnerAlpha
                 bool.Parse(config.getValue("Video", "Fullscreen"))
                 );
 
-            Viewport view = new Viewport(0, 0, 1280, 800);
+            Viewport view = new Viewport(0, 0, 
+                int.Parse(config.getValue("Video", "Width")),
+                int.Parse(config.getValue("Video", "Height"))
+                );
             camera = new Camera2D(view, 0.5f, 0f, this);
+
+            this.IsMouseVisible = false;
 
             stateManager = new StateManager(this);
         }

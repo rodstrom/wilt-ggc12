@@ -21,6 +21,13 @@ namespace RunnerAlpha.Code.Graphics
         protected override void LoadContent()
         {
             SourceTexture = Game.Content.Load<Texture2D>(_filename);
+            Origin = new Vector2(SourceRectangle.Left, SourceRectangle.Bottom);
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            position.X -= 3f;
+            base.Update(gameTime);
         }
 
         public override void Update(GameTime gameTime)

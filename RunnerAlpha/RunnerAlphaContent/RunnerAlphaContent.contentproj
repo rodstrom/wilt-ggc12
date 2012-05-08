@@ -95,38 +95,38 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graphics\Platforms\1.png">
-      <Name>1</Name>
+    <Compile Include="Graphics\Platforms\hus1.png">
+      <Name>hus1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Graphics\Platforms\2 %282%29.png">
-      <Name>2 %282%29</Name>
+    <Compile Include="Graphics\Platforms\hus2.png">
+      <Name>hus2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Graphics\Platforms\3 %282%29.png">
-      <Name>3 %282%29</Name>
+    <Compile Include="Graphics\Platforms\hus3.png">
+      <Name>hus3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Graphics\Platforms\b1.png">
-      <Name>b1</Name>
+    <Compile Include="Graphics\Platforms\hus4.png">
+      <Name>hus4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Graphics\Platforms\b4.png">
-      <Name>b4</Name>
+    <Compile Include="Graphics\Platforms\hus5.png">
+      <Name>hus5</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Graphics\Platforms\c2.png">
-      <Name>c2</Name>
+    <Compile Include="Graphics\Platforms\hus6.png">
+      <Name>hus6</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Graphics\Platforms\c3.png">
-      <Name>c3</Name>
+    <Compile Include="Graphics\Platforms\hus7.png">
+      <Name>hus7</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
