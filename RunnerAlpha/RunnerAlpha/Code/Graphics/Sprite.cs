@@ -54,8 +54,8 @@ namespace RunnerAlpha.Code.Graphics
                     sourceRectangle.Width = sourceTexture.Width;
                     sourceRectangle.Height = sourceTexture.Height;
 
-                    colorData = new Color[sourceRectangle.Width * sourceRectangle.Height];
-                    sourceTexture.GetData(colorData);
+                    //colorData = new Color[sourceRectangle.Width * sourceRectangle.Height];
+                    //sourceTexture.GetData(colorData);
                 }
             }
         }
@@ -67,11 +67,11 @@ namespace RunnerAlpha.Code.Graphics
             {
                 sourceRectangle = value;
 
-                if (sourceTexture != null)
-                {
-                    colorData = new Color[sourceRectangle.Width * sourceRectangle.Height];
-                    sourceTexture.GetData(colorData);
-                }
+                //if (sourceTexture != null)
+                //{
+                //    colorData = new Color[sourceRectangle.Width * sourceRectangle.Height];
+                //    sourceTexture.GetData(colorData);
+                //}
             }
         }
 
