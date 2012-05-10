@@ -15,6 +15,17 @@ namespace RunnerAlpha.Code.States
         protected InputManager inputManager;
 
         public int inputCode = 0;
+        public virtual int InputCode
+        {
+            get
+            {
+                return inputCode;
+            }
+            set
+            {
+                inputCode = value;
+            }
+        }
         public int outputCode = 0;
 
         protected SpriteBatch spriteBatch;

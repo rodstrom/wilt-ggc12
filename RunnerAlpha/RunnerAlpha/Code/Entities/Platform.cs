@@ -81,19 +81,22 @@ namespace RunnerAlpha.Code.Entities
         {
             base.Draw(gameTime);
 
-            r = HitRectangle;
-            SpriteBatch.Draw(t, new Rectangle(r.Left, r.Top, 4, r.Height), Color.Red); // Left
-            SpriteBatch.Draw(t, new Rectangle(r.Right, r.Top, 4, r.Height), Color.Red); // Right
-            SpriteBatch.Draw(t, new Rectangle(r.Left, r.Top, r.Width, 4), Color.Red); // Top
-            SpriteBatch.Draw(t, new Rectangle(r.Left, r.Bottom, r.Width, 4), Color.Red); // Bottom
-
-            if (hitRect2Enabled)
+            if (bool.Parse(Runner.config.getValue("Debug", "Hitbox")))
             {
-                r = HitRectangle2;
+                r = HitRectangle;
                 SpriteBatch.Draw(t, new Rectangle(r.Left, r.Top, 4, r.Height), Color.Red); // Left
                 SpriteBatch.Draw(t, new Rectangle(r.Right, r.Top, 4, r.Height), Color.Red); // Right
                 SpriteBatch.Draw(t, new Rectangle(r.Left, r.Top, r.Width, 4), Color.Red); // Top
                 SpriteBatch.Draw(t, new Rectangle(r.Left, r.Bottom, r.Width, 4), Color.Red); // Bottom
+
+                if (hitRect2Enabled)
+                {
+                    r = HitRectangle2;
+                    SpriteBatch.Draw(t, new Rectangle(r.Left, r.Top, 4, r.Height), Color.Red); // Left
+                    SpriteBatch.Draw(t, new Rectangle(r.Right, r.Top, 4, r.Height), Color.Red); // Right
+                    SpriteBatch.Draw(t, new Rectangle(r.Left, r.Top, r.Width, 4), Color.Red); // Top
+                    SpriteBatch.Draw(t, new Rectangle(r.Left, r.Bottom, r.Width, 4), Color.Red); // Bottom
+                }
             }
         }
     }

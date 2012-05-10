@@ -93,7 +93,7 @@ namespace RunnerAlpha
                 int.Parse(config.getValue("Video", "Width")),
                 int.Parse(config.getValue("Video", "Height"))
                 );
-            camera = new Camera2D(view, 0.5f, 0f, this);
+            camera = new Camera2D(view, 0.3f, 0f, this);
 
             this.IsMouseVisible = false;
 

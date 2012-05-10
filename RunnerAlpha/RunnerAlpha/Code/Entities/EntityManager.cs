@@ -12,10 +12,10 @@ namespace RunnerAlpha.Code.Entities
     {
         Runner game;
         SpriteBatch spriteBatch;
+        BackgroundManager backgroundManager;
 
         public Player player;
         public LinkedList<Entity> entityList = new LinkedList<Entity>();
-        public LinkedList<Background> backgroundList = new LinkedList<Background>();
         Dictionary<String, Rectangle[]> platformFiles = new Dictionary<String, Rectangle[]>();
         Random random = new Random();
 
@@ -29,15 +29,12 @@ namespace RunnerAlpha.Code.Entities
 
         public void Initialize()
         {
+            backgroundManager = new BackgroundManager(game, spriteBatch);
+            backgroundManager.Initialize();
+
             player = new Player(game, spriteBatch, new Vector2(300f, -500f));
             player.Initialize();
             entityList.AddLast(player);
-            
-            Background background = new Background(@"Graphics\Backgrounds\Background", spriteBatch, game, new Vector2(-300f, Runner.HEIGHT));
-            background.Initialize();
-            backgroundList.AddLast(background);
-            backgroundList.AddLast(addBackground());
-            backgroundList.AddLast(addBackground());
 
             platform = new Platform(game, spriteBatch, @"Graphics\Platforms\hus1", new Vector2(-100f, Runner.HEIGHT + 600f), new Rectangle(163, 216, 1030, 1000));
             platform.Initialize();
@@ -117,7 +114,7 @@ namespace RunnerAlpha.Code.Entities
             string filename = platformFiles.ElementAt(rand).Key;
             Rectangle[] rect = platformFiles.ElementAt(rand).Value;
             Platform lastPlatform = (Platform)findLastOfType("Platform").Value;
-            float posX = lastPlatform.position.X + lastPlatform.Rectangle.Width + random.Next(0, 0);
+            float posX = lastPlatform.position.X + lastPlatform.Rectangle.Width + random.Next(100, 500);
             Vector2 position = new Vector2(posX, Runner.HEIGHT + 600f);
             if (rect.Length == 1)
             {
@@ -131,21 +128,6 @@ namespace RunnerAlpha.Code.Entities
             return platform;
         }
 
-        private void refreshBackgrounds()
-        {
-            backgroundList.RemoveFirst();
-            backgroundList.AddLast(addBackground());
-        }
-
-        private Background addBackground()
-        {
-            Vector2 position = new Vector2(backgroundList.Last.Value.Rectangle.Right, Runner.HEIGHT);
-
-            Background background = new Background(@"Graphics\Backgrounds\Background", spriteBatch, game, position);
-            background.Initialize();
-            return background;
-        }
-
         public void Terminate()
         {
             player = null;
@@ -155,14 +137,11 @@ namespace RunnerAlpha.Code.Entities
 
         public void Update(GameTime gameTime)
         {
+            backgroundManager.Update(gameTime, (int)player.position.X);
+
             foreach (Entity entity in entityList)
             {
                 entity.Update(gameTime);
-            }
-
-            foreach (Background background in backgroundList)
-            {
-                background.Update(gameTime);
             }
 
             Platform tempPlatform = (Platform)findFirstOfType("Platform").Next.Value;
@@ -171,20 +150,12 @@ namespace RunnerAlpha.Code.Entities
                 refreshPlatforms();
             }
 
-            if (backgroundList.First.Next.Value.Rectangle.Right < player.position.X - Runner.WIDTH)
-            {
-                refreshBackgrounds();
-            }
-
             CollisionCheck();
         }
 
         public void Draw(GameTime gameTime)
         {
-            foreach (Background background in backgroundList)
-            {
-                background.Draw(gameTime);
-            }
+            backgroundManager.Draw(gameTime);
 
             foreach (Entity entity in entityList)
             {
@@ -192,6 +163,10 @@ namespace RunnerAlpha.Code.Entities
             }
 
             player.Draw(gameTime);
+
+            Texture2D t = new Texture2D(game.graphics.GraphicsDevice, 1, 1);
+            t.SetData(new[] { Color.White }); 
+            spriteBatch.Draw(t, new Rectangle((int)player.position.X - Runner.WIDTH, Runner.HEIGHT, Runner.WIDTH * 4, 4), Color.Red); // Bottom
         }
 
         private void CollisionCheck()

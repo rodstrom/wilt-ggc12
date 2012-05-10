@@ -55,7 +55,7 @@ namespace RunnerAlpha.Code.States
                 currentState.Terminate();
 
                 currentState = SelectState(nextState);
-                currentState.inputCode = score;
+                currentState.InputCode = score;
 
             }
         }
