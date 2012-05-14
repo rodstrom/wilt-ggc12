@@ -86,14 +86,15 @@ namespace RunnerAlpha.Code.States
             //}
             else if (entityManager.player.lose)
             {
-                outputCode = -1;
+                outputCode = score;
                 changeState = true;
             }
 
             if (!pause)
             {
                 game.Timer.Update(gameTime);
-                score = game.Timer.ToInteger("s_total");
+                //score = game.Timer.ToInteger("s_total");
+                score = (int)(entityManager.player.position.X - 300f) / 100;
 
                 entityManager.Update(gameTime);
             }
@@ -143,9 +144,9 @@ namespace RunnerAlpha.Code.States
             {
                 drawPauseDialog();
             }
-            int time = (int)game.Timer.MainEvent.currentTime;
+            //int time = (int)game.Timer.MainEvent.currentTime;
 
-            spriteBatch.DrawString(font, (time / 1000).ToString(), guiPosition, Color.Red, 0f, Vector2.Zero, 0.5f / game.Camera.Zoom, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font, score.ToString(), guiPosition, Color.Red, 0f, Vector2.Zero, 0.5f / game.Camera.Zoom, SpriteEffects.None, 1f);
 
             //spriteBatch.DrawString(font, "Kinetic X: " + entityManager.player.kinetics.X.ToString() + System.Environment.NewLine + "Kinetic Y: " + entityManager.player.kinetics.Y.ToString(), new Vector2(game.Camera.Position.X - 150, game.Camera.Position.Y + 200), Color.Red);
             

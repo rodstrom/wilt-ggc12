@@ -11,60 +11,6 @@
       <Time>2012-04-10T11:14:12.9766483+02:00</Time>
     </Item>
     <Item>
-      <Source>Graphics\Background.png</Source>
-      <Name>Graphics\Background</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Background.xnb</Output>
-      <Time>2012-04-10T10:24:04.6105796+02:00</Time>
-    </Item>
-    <Item>
-      <Source>Graphics\buildingStupranna.png</Source>
-      <Name>Graphics\buildingStupranna</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\buildingStupranna.xnb</Output>
-      <Time>2012-04-10T10:28:17.6630533+02:00</Time>
-    </Item>
-    <Item>
-      <Source>Graphics\buildingDoor.png</Source>
-      <Name>Graphics\buildingDoor</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\buildingDoor.xnb</Output>
-      <Time>2012-04-10T10:28:17.6610532+02:00</Time>
-    </Item>
-    <Item>
-      <Source>Graphics\Start.png</Source>
-      <Name>Graphics\Start</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Start.xnb</Output>
-      <Time>2012-04-10T10:28:17.6590531+02:00</Time>
-    </Item>
-    <Item>
-      <Source>Graphics\running.png</Source>
-      <Name>Graphics\running</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\running.xnb</Output>
-      <Time>2012-04-10T10:28:17.6650534+02:00</Time>
-    </Item>
-    <Item>
-      <Source>Graphics\3.png</Source>
-      <Name>Graphics\3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\3.xnb</Output>
-      <Time>2012-04-10T10:28:17.658053+02:00</Time>
-    </Item>
-    <Item>
       <Source>Audio\Sound\Jump.wav</Source>
       <Name>Audio\Sound\Jump</Name>
       <Importer>WavImporter</Importer>
@@ -101,13 +47,85 @@
       <Time>2012-04-10T15:33:00.9233244+02:00</Time>
     </Item>
     <Item>
-      <Source>Graphics\RunningSheet.png</Source>
-      <Name>Graphics\RunningSheet</Name>
+      <Source>Graphics\Backgrounds\Background.png</Source>
+      <Name>Graphics\Backgrounds\Background</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\RunningSheet.xnb</Output>
-      <Time>2012-04-24T21:47:02.1547854+02:00</Time>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Backgrounds\Background.xnb</Output>
+      <Time>2012-05-08T19:30:48.7803056+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Spritesheets\RunningSheet.png</Source>
+      <Name>Graphics\Spritesheets\RunningSheet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Spritesheets\RunningSheet.xnb</Output>
+      <Time>2012-04-27T08:44:17.1559885+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Platforms\hus1.png</Source>
+      <Name>Graphics\Platforms\hus1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Platforms\hus1.xnb</Output>
+      <Time>2012-05-08T19:30:48.803307+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Platforms\hus2.png</Source>
+      <Name>Graphics\Platforms\hus2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Platforms\hus2.xnb</Output>
+      <Time>2012-05-08T19:30:48.8253082+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Platforms\hus3.png</Source>
+      <Name>Graphics\Platforms\hus3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Platforms\hus3.xnb</Output>
+      <Time>2012-05-08T19:30:48.8473095+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Platforms\hus4.png</Source>
+      <Name>Graphics\Platforms\hus4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Platforms\hus4.xnb</Output>
+      <Time>2012-05-08T19:30:48.8583101+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Platforms\hus5.png</Source>
+      <Name>Graphics\Platforms\hus5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Platforms\hus5.xnb</Output>
+      <Time>2012-05-08T19:30:48.8803114+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Platforms\hus6.png</Source>
+      <Name>Graphics\Platforms\hus6</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Platforms\hus6.xnb</Output>
+      <Time>2012-05-08T19:30:48.8933121+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Platforms\hus7.png</Source>
+      <Name>Graphics\Platforms\hus7</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Platforms\hus7.xnb</Output>
+      <Time>2012-05-08T19:30:48.9333144+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

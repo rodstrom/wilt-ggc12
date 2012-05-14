@@ -76,8 +76,8 @@ namespace RunnerAlpha.Code.Entities
                     }
                     else
                     {
-                        kinetics.Y -= kineticVector.FinalVector.Y * 3;
-                        kinetics.X -= kineticVector.FinalVector.X * 2;
+                        kinetics.Y -= kineticVector.FinalVector.Y * 5;
+                        kinetics.X -= kineticVector.FinalVector.X * 4;
                         snapShotIndex = 0;
                         Mouse.SetPosition(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2);
                         input.CurrentMouse = input.MouseOriginal;

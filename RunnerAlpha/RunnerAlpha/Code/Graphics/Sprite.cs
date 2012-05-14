@@ -13,8 +13,8 @@ namespace RunnerAlpha.Code.Graphics
     {
         private Texture2D sourceTexture = null;
         private Rectangle sourceRectangle = Rectangle.Empty;
-        private Color[] colorData = null;
-        public Color color = Color.White;
+        //private Color[] colorData = null;
+        //public Color color = Color.White;
 
         public Vector2 scale = new Vector2(1.0f, 1.0f);
 
@@ -34,10 +34,10 @@ namespace RunnerAlpha.Code.Graphics
             sourceTexture = null;
         }
 
-        public Color[] ColorData
-        {
-            get { return colorData; }
-        }
+        //public Color[] ColorData
+        //{
+        //    get { return colorData; }
+        //}
 
         public Texture2D SourceTexture
         {
@@ -54,8 +54,8 @@ namespace RunnerAlpha.Code.Graphics
                     sourceRectangle.Width = sourceTexture.Width;
                     sourceRectangle.Height = sourceTexture.Height;
 
-                    colorData = new Color[sourceRectangle.Width * sourceRectangle.Height];
-                    sourceTexture.GetData(colorData);
+                    //colorData = new Color[sourceRectangle.Width * sourceRectangle.Height];
+                    //sourceTexture.GetData(colorData);
                 }
             }
         }
@@ -67,48 +67,17 @@ namespace RunnerAlpha.Code.Graphics
             {
                 sourceRectangle = value;
 
-                if (sourceTexture != null)
-                {
-                    colorData = new Color[sourceRectangle.Width * sourceRectangle.Height];
-                    sourceTexture.GetData(colorData);
-                }
+                //if (sourceTexture != null)
+                //{
+                //    colorData = new Color[sourceRectangle.Width * sourceRectangle.Height];
+                //    sourceTexture.GetData(colorData);
+                //}
             }
         }
 
         public override void Draw(GameTime gameTime)
         {
-            SpriteBatch.Draw(SourceTexture, position, SourceRectangle, color, Rotation, Origin, scale, SpriteEffects.None, 0.0f);
+            SpriteBatch.Draw(SourceTexture, position, SourceRectangle, Color.White, Rotation, Origin, scale, SpriteEffects.None, 0.0f);
         }
     }
-    //public class Sprite : DrawableGameComponent
-    //{
-    //    private Texture2D texture;
-    //    private SpriteBatch spriteBatch;
-    //    private Runner runner;
-
-    //    public Sprite(Runner game, SpriteBatch spriteBatch, string filename)
-    //        : base(game)
-    //    {
-    //        this.spriteBatch = spriteBatch;
-    //        runner = game;
-    //        texture = Game.Content.Load<Texture2D>(filename);
-    //    }
-
-    //    public void Draw(Vector2 position, Rectangle rect, Color color, float rotation, Vector2 origin, float scale, SpriteEffects spriteEffects, float layer, Effect effect)
-    //    {
-    //        spriteBatch.End();
-    //        spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, runner.Camera.Transform);
-    //        spriteBatch.Draw(texture, position, rect, color, rotation, origin, scale, spriteEffects, layer);
-    //        spriteBatch.End();
-    //        spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, runner.Camera.Transform);
-    //    }
-
-    //    public Vector2 Dimension
-    //    {
-    //        get
-    //        {
-    //            return new Vector2((float)texture.Width, (float)texture.Height);
-    //        }
-    //    }
-    //}
 }

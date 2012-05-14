@@ -12,11 +12,11 @@ namespace RunnerAlpha.Code.Entities
     {
         Runner game;
         SpriteBatch spriteBatch;
+        BackgroundManager backgroundManager;
 
         public Player player;
         public LinkedList<Entity> entityList = new LinkedList<Entity>();
-        public LinkedList<Background> backgroundList = new LinkedList<Background>();
-        Dictionary<String, Rectangle> platformFiles = new Dictionary<String, Rectangle>();
+        Dictionary<String, Rectangle[]> platformFiles = new Dictionary<String, Rectangle[]>();
         Random random = new Random();
 
         public Platform platform = null;
@@ -29,27 +29,36 @@ namespace RunnerAlpha.Code.Entities
 
         public void Initialize()
         {
+            backgroundManager = new BackgroundManager(game, spriteBatch);
+            backgroundManager.Initialize();
+
             player = new Player(game, spriteBatch, new Vector2(300f, -500f));
             player.Initialize();
             entityList.AddLast(player);
 
-            platform = new Platform(game, spriteBatch, @"Graphics\Platforms\hus1", new Vector2(-100f, Runner.HEIGHT + 800f), new Rectangle(163, 216, 1030, 2484));
+            platform = new Platform(game, spriteBatch, @"Graphics\Platforms\hus1", new Vector2(-100f, Runner.HEIGHT + 600f), new Rectangle(163, 216, 1030, 1000));
             platform.Initialize();
             entityList.AddLast(platform);
 
-            Background background = new Background(@"Graphics\Backgrounds\Background", spriteBatch, game, new Vector2(-300f, Runner.HEIGHT));
-            background.Initialize();
-            backgroundList.AddLast(background);
-            backgroundList.AddLast(addBackground());
-            backgroundList.AddLast(addBackground());
-
-            platformFiles.Add(@"Graphics\Platforms\hus1", new Rectangle(163, 216, 1030, 1000));
-            platformFiles.Add(@"Graphics\Platforms\hus2", new Rectangle(10, 480, 1429, 1000));
-            platformFiles.Add(@"Graphics\Platforms\hus3", new Rectangle(7, 116, 1997, 1000));
-            platformFiles.Add(@"Graphics\Platforms\hus4", new Rectangle(3, 1331, 637, 1000));
-            platformFiles.Add(@"Graphics\Platforms\hus5", new Rectangle(283, 266, 1149, 1000));
-            platformFiles.Add(@"Graphics\Platforms\hus6", new Rectangle(115, 175, 984, 1000));
-            platformFiles.Add(@"Graphics\Platforms\hus7", new Rectangle(20, 500, 2200, 1000));
+            Rectangle[] r = new Rectangle[1];
+            r[0] = new Rectangle(163, 216, 1030, 1000);
+            platformFiles.Add(@"Graphics\Platforms\hus1", r);
+            r[0] = new Rectangle(0, 112, 1190, 1000);
+            platformFiles.Add(@"Graphics\Platforms\hus3", r);
+            r[0] = new Rectangle(0, 1331, 634, 1000);
+            platformFiles.Add(@"Graphics\Platforms\hus4", r);
+            r[0] = new Rectangle(120, 175, 990, 1000);
+            platformFiles.Add(@"Graphics\Platforms\hus6", r);
+            r = new Rectangle[2];
+            r[0] = new Rectangle(10, 480, 920, 1000);
+            r[1] = new Rectangle(685, 5, 1429, 20);
+            platformFiles.Add(@"Graphics\Platforms\hus2", r);
+            r[0] = new Rectangle(0, 1020, 1429, 1000);
+            r[1] = new Rectangle(280, 266, 1147, 20);
+            platformFiles.Add(@"Graphics\Platforms\hus5", r);
+            r[0] = new Rectangle(15, 495, 1125, 1000);
+            r[1] = new Rectangle(1125, 470, 2160, 1000);
+            platformFiles.Add(@"Graphics\Platforms\hus7", r);
 
             for (int i = 0; i < 5; i++)
             {
@@ -101,30 +110,22 @@ namespace RunnerAlpha.Code.Entities
 
         private Platform addPlatform()
         {
-            string filename = platformFiles.ElementAt(random.Next(platformFiles.Count)).Key;
-            Rectangle rect = platformFiles.ElementAt(random.Next(platformFiles.Count)).Value;
+            int rand = random.Next(platformFiles.Count);
+            string filename = platformFiles.ElementAt(rand).Key;
+            Rectangle[] rect = platformFiles.ElementAt(rand).Value;
             Platform lastPlatform = (Platform)findLastOfType("Platform").Value;
-            float posX = lastPlatform.position.X + lastPlatform.Rectangle.Width + random.Next(200, 300);
-            Vector2 position = new Vector2(posX, Runner.HEIGHT + 800f);
-
-            platform = new Platform(game, spriteBatch, filename, position, rect);
+            float posX = lastPlatform.position.X + lastPlatform.Rectangle.Width + random.Next(100, 500);
+            Vector2 position = new Vector2(posX, Runner.HEIGHT + 600f);
+            if (rect.Length == 1)
+            {
+                platform = new Platform(game, spriteBatch, filename, position, rect[0]);
+            }
+            else
+            {
+                platform = new Platform(game, spriteBatch, filename, position, rect);
+            }
             platform.Initialize();
             return platform;
-        }
-
-        private void refreshBackgrounds()
-        {
-            backgroundList.RemoveFirst();
-            backgroundList.AddLast(addBackground());
-        }
-
-        private Background addBackground()
-        {
-            Vector2 position = new Vector2(backgroundList.Last.Value.Rectangle.Right, Runner.HEIGHT);
-
-            Background background = new Background(@"Graphics\Backgrounds\Background", spriteBatch, game, position);
-            background.Initialize();
-            return background;
         }
 
         public void Terminate()
@@ -136,14 +137,11 @@ namespace RunnerAlpha.Code.Entities
 
         public void Update(GameTime gameTime)
         {
+            backgroundManager.Update(gameTime, (int)player.position.X);
+
             foreach (Entity entity in entityList)
             {
                 entity.Update(gameTime);
-            }
-
-            foreach (Background background in backgroundList)
-            {
-                background.Update(gameTime);
             }
 
             Platform tempPlatform = (Platform)findFirstOfType("Platform").Next.Value;
@@ -152,20 +150,12 @@ namespace RunnerAlpha.Code.Entities
                 refreshPlatforms();
             }
 
-            if (backgroundList.First.Next.Value.Rectangle.Right < player.position.X - Runner.WIDTH)
-            {
-                refreshBackgrounds();
-            }
-
             CollisionCheck();
         }
 
         public void Draw(GameTime gameTime)
         {
-            foreach (Background background in backgroundList)
-            {
-                background.Draw(gameTime);
-            }
+            backgroundManager.Draw(gameTime);
 
             foreach (Entity entity in entityList)
             {
@@ -173,6 +163,10 @@ namespace RunnerAlpha.Code.Entities
             }
 
             player.Draw(gameTime);
+
+            Texture2D t = new Texture2D(game.graphics.GraphicsDevice, 1, 1);
+            t.SetData(new[] { Color.White }); 
+            spriteBatch.Draw(t, new Rectangle((int)player.position.X - Runner.WIDTH, Runner.HEIGHT, Runner.WIDTH * 4, 4), Color.Red); // Bottom
         }
 
         private void CollisionCheck()
@@ -182,31 +176,47 @@ namespace RunnerAlpha.Code.Entities
                 player.lose = true;
             }
 
-            Rectangle p = player.Rectangle;
             player.falling = false;
             foreach(Entity entity in entityList)
             {
                 if (entity.GetType().Name == "Platform")
                 {
                     Platform tmpPlat = (Platform)entity;
-                    if (!(p.Intersects(tmpPlat.HitRectangle)))
+                    if (!(player.Rectangle.Intersects(tmpPlat.HitRectangle)))
                     {
                         player.falling = true;
                     }
-                    else if (p.Intersects(tmpPlat.HitRectangle))
+                    else if (player.Rectangle.Intersects(tmpPlat.HitRectangle))
                     {
                         SideCollided sides = GetSidesCollided(player.Rectangle, tmpPlat.HitRectangle);
                         if ((int)sides % 2 == (int)SideCollided.Top)
                         {
-                            player.position.Y = (tmpPlat.HitRectangle.Top - p.Height / 2) - 2;
+                            player.position.Y = (tmpPlat.HitRectangle.Top - player.Rectangle.Height / 2) - 2;
                             player.falling = false;
                         }
                         if (sides == SideCollided.Left)
                         {
-                            player.position.X = (tmpPlat.HitRectangle.Left - p.Width / 2) - 2;
+                            player.position.X = (tmpPlat.HitRectangle.Left - player.Rectangle.Width / 2) - 2;
                             player.falling = true;
                         }
                         return;
+                    }
+                    if(tmpPlat.hitRect2Enabled)
+                    {
+                        if (!(player.Rectangle.Intersects(tmpPlat.HitRectangle2)))
+                        {
+                            player.falling = true;
+                        }
+                        else if (player.Rectangle.Intersects(tmpPlat.HitRectangle2))
+                        {
+                            SideCollided sides = GetSidesCollided(player.Rectangle, tmpPlat.HitRectangle2);
+                            if ((int)sides % 2 == (int)SideCollided.Top)
+                            {
+                                player.position.Y = (tmpPlat.HitRectangle2.Top - player.Rectangle.Height / 2) - 2;
+                                player.falling = false;
+                            }
+                            return;
+                        }
                     }
                 }
             }
