@@ -21,10 +21,30 @@ namespace RunnerAlpha.Code.Graphics
             set;
         }
 
-        public AnimationFrame(Texture2D tex, Rectangle rect)
+        public Color[,] ColorData
+        {
+            get;
+            private set;
+        }
+
+        private void SetColorData(Texture2D texture)
+        {
+            Color[] ColorArray1D = new Color[texture.Width * texture.Height];
+            texture.GetData(ColorArray1D);
+
+            Color[,] ColorArray2D = new Color[texture.Width, texture.Height];
+            for (int x = 0; x < texture.Width; x++)
+                for (int y = 0; y < texture.Height; y++)
+                    ColorArray2D[x, y] = ColorArray1D[x + y * texture.Width];
+
+            ColorData = ColorArray2D;
+        }
+
+        public AnimationFrame(Texture2D tex, Rectangle rect, Texture2D colTex)
         {
             SourceTexture = tex;
             SourceRectangle = rect;
+            SetColorData(colTex);
         }
     }
 }

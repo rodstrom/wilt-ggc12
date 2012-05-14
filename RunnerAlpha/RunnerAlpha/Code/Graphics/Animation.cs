@@ -15,14 +15,29 @@ namespace RunnerAlpha.Code.Graphics
 
         AnimationFrame currentFrame = null;
 
-        public Rectangle Rectangle
+        public AnimationFrame CurrentFrame
         {
-            get
-            {
-                int x = (int)(position.X - Origin.X);
-                int y = (int)(position.Y - Origin.Y);
-                return new Rectangle(x, y, currentFrame.SourceRectangle.Width, currentFrame.SourceRectangle.Height);
-            }
+            get { return currentFrame; }
+        }
+
+        public Color[,] SetColorData
+        {
+            get { return currentFrame.ColorData; }
+        }
+
+        private void UpdateSourceRectangle()
+        {
+            int x = (int)(position.X - Origin.X);
+            int y = (int)(position.Y - Origin.Y);
+            SourceRectangle = new Rectangle(x, y, currentFrame.SourceRectangle.Width, currentFrame.SourceRectangle.Height);
+        }
+
+        private void UpdateCollisionRectangle()
+        {
+            CollisionRectangle = new Rectangle(SourceRectangle.X - currentFrame.SourceRectangle.X,
+                SourceRectangle.Y - currentFrame.SourceRectangle.Y,
+                currentFrame.SourceRectangle.Width,
+                currentFrame.SourceRectangle.Height);
         }
 
         public string AnimationName
@@ -58,6 +73,10 @@ namespace RunnerAlpha.Code.Graphics
             currentFrame = animationList[currentAnimation].getCurrentFrame(gameTime);
 
             Origin = new Vector2(currentFrame.SourceRectangle.Width * 0.5f, currentFrame.SourceRectangle.Height * 0.5f);
+
+            UpdateSourceRectangle();
+            UpdateCollisionRectangle();
+            ColorData = SetColorData;
 
             base.Update(gameTime);
         }

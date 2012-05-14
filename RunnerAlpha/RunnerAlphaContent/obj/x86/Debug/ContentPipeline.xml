@@ -47,22 +47,13 @@
       <Time>2012-04-10T15:33:00.9233244+02:00</Time>
     </Item>
     <Item>
-      <Source>Graphics\Backgrounds\Background.png</Source>
-      <Name>Graphics\Backgrounds\Background</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Backgrounds\Background.xnb</Output>
-      <Time>2012-05-08T19:30:48.7803056+02:00</Time>
-    </Item>
-    <Item>
       <Source>Graphics\Spritesheets\RunningSheet.png</Source>
       <Name>Graphics\Spritesheets\RunningSheet</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Spritesheets\RunningSheet.xnb</Output>
-      <Time>2012-04-27T08:44:17.1559885+02:00</Time>
+      <Time>2012-05-14T16:26:11.9863067+02:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Platforms\hus1.png</Source>
@@ -89,7 +80,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Platforms\hus3.xnb</Output>
-      <Time>2012-05-08T19:30:48.8473095+02:00</Time>
+      <Time>2012-05-14T15:54:17.7837895+02:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Platforms\hus4.png</Source>
@@ -98,7 +89,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Platforms\hus4.xnb</Output>
-      <Time>2012-05-08T19:30:48.8583101+02:00</Time>
+      <Time>2012-05-14T15:54:17.7993896+02:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Platforms\hus5.png</Source>
@@ -107,7 +98,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Platforms\hus5.xnb</Output>
-      <Time>2012-05-08T19:30:48.8803114+02:00</Time>
+      <Time>2012-05-14T15:54:17.8149896+02:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Platforms\hus6.png</Source>
@@ -116,7 +107,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Platforms\hus6.xnb</Output>
-      <Time>2012-05-08T19:30:48.8933121+02:00</Time>
+      <Time>2012-05-14T15:54:17.8305896+02:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Platforms\hus7.png</Source>
@@ -126,6 +117,141 @@
       <Options>None</Options>
       <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Platforms\hus7.xnb</Output>
       <Time>2012-05-08T19:30:48.9333144+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Backgrounds\Skyline1.png</Source>
+      <Name>Graphics\Backgrounds\Skyline1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Backgrounds\Skyline1.xnb</Output>
+      <Time>2012-05-14T15:54:18.079203+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Backgrounds\Sky1.png</Source>
+      <Name>Graphics\Backgrounds\Sky1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Backgrounds\Sky1.xnb</Output>
+      <Time>2012-05-14T15:54:17.6901894+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Backgrounds\hus1.png</Source>
+      <Name>Graphics\Backgrounds\hus1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Backgrounds\hus1.xnb</Output>
+      <Time>2012-05-14T15:54:17.7369894+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Backgrounds\hus2.png</Source>
+      <Name>Graphics\Backgrounds\hus2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Backgrounds\hus2.xnb</Output>
+      <Time>2012-05-14T15:54:17.7681895+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Backgrounds\Clouds\10.png</Source>
+      <Name>Graphics\Backgrounds\Clouds\10</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Backgrounds\Clouds\10.xnb</Output>
+      <Time>2012-05-14T15:54:17.6745893+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Backgrounds\Clouds\11.png</Source>
+      <Name>Graphics\Backgrounds\Clouds\11</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Backgrounds\Clouds\11.xnb</Output>
+      <Time>2012-05-14T15:54:17.6745893+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Backgrounds\Clouds\9.png</Source>
+      <Name>Graphics\Backgrounds\Clouds\9</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Backgrounds\Clouds\9.xnb</Output>
+      <Time>2012-05-14T15:54:17.6745893+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Collision\Platforms\Hus1_collision.png</Source>
+      <Name>Graphics\Collision\Platforms\Hus1_collision</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Collision\Platforms\Hus1_collision.xnb</Output>
+      <Time>2012-05-14T20:48:43.7207157+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Collision\Platforms\hus2_collision.png</Source>
+      <Name>Graphics\Collision\Platforms\hus2_collision</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Collision\Platforms\hus2_collision.xnb</Output>
+      <Time>2012-05-14T16:25:14.5056919+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Collision\Platforms\hus3_collision.png</Source>
+      <Name>Graphics\Collision\Platforms\hus3_collision</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Collision\Platforms\hus3_collision.xnb</Output>
+      <Time>2012-05-14T20:48:43.7237159+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Collision\Platforms\Hus4_collision.png</Source>
+      <Name>Graphics\Collision\Platforms\Hus4_collision</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Collision\Platforms\Hus4_collision.xnb</Output>
+      <Time>2012-05-14T20:48:43.7267161+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Collision\Platforms\hus5_collision.png</Source>
+      <Name>Graphics\Collision\Platforms\hus5_collision</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Collision\Platforms\hus5_collision.xnb</Output>
+      <Time>2012-05-14T20:48:43.7287162+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Collision\Platforms\hus6_collision.png</Source>
+      <Name>Graphics\Collision\Platforms\hus6_collision</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Collision\Platforms\hus6_collision.xnb</Output>
+      <Time>2012-05-14T20:48:43.7317164+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Collision\Platforms\hus7_collision.png</Source>
+      <Name>Graphics\Collision\Platforms\hus7_collision</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Collision\Platforms\hus7_collision.xnb</Output>
+      <Time>2012-05-14T16:25:14.5346936+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Collision\Spritesheets\RunningCollision.PNG</Source>
+      <Name>Graphics\Collision\Spritesheets\RunningCollision</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Swebban\Desktop\GGC12Stuff\wilt-ggc12\RunnerAlpha\RunnerAlpha\bin\x86\Debug\Content\Graphics\Collision\Spritesheets\RunningCollision.xnb</Output>
+      <Time>2012-05-14T16:35:59.3662949+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

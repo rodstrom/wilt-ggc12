@@ -11,33 +11,13 @@ namespace RunnerAlpha.Code.Graphics
 {
     public class Sprite : Entity
     {
-        private Texture2D sourceTexture = null;
-        private Rectangle sourceRectangle = Rectangle.Empty;
-        //private Color[] colorData = null;
-        //public Color color = Color.White;
+        protected Texture2D sourceTexture;
+        protected Texture2D hitTexture;
 
-        public Vector2 scale = new Vector2(1.0f, 1.0f);
-
-        public Rectangle Rectangle
+        public Texture2D HitTexture
         {
-            get
-            {
-                int x = (int)(position.X - Origin.X);
-                int y = (int)(position.Y - Origin.Y);
-                return new Rectangle(x, y, SourceTexture.Width, SourceTexture.Height);
-            }
+            get { return hitTexture; }
         }
-
-        public Sprite(SpriteBatch spriteBatch, Runner game)
-            : base(game, spriteBatch)
-        {
-            sourceTexture = null;
-        }
-
-        //public Color[] ColorData
-        //{
-        //    get { return colorData; }
-        //}
 
         public Texture2D SourceTexture
         {
@@ -49,35 +29,56 @@ namespace RunnerAlpha.Code.Graphics
 
                 if (sourceTexture != null)
                 {
-                    sourceRectangle.X = 0;
-                    sourceRectangle.Y = 0;
-                    sourceRectangle.Width = sourceTexture.Width;
-                    sourceRectangle.Height = sourceTexture.Height;
-
-                    //colorData = new Color[sourceRectangle.Width * sourceRectangle.Height];
-                    //sourceTexture.GetData(colorData);
+                    SourceRectangle = new Rectangle(0, 0, value.Width, value.Height);
                 }
             }
         }
 
-        public Rectangle SourceRectangle
+        public void GetColorData(Texture2D texture)
         {
-            get { return sourceRectangle; }
-            set
-            {
-                sourceRectangle = value;
+            Color[] ColorArray1D = new Color[texture.Width * texture.Height];
+            texture.GetData(ColorArray1D);
 
-                //if (sourceTexture != null)
-                //{
-                //    colorData = new Color[sourceRectangle.Width * sourceRectangle.Height];
-                //    sourceTexture.GetData(colorData);
-                //}
-            }
+            Color[,] ColorArray2D = new Color[texture.Width, texture.Height];
+            for (int x = 0; x < texture.Width; x++)
+                for (int y = 0; y < texture.Height; y++)
+                    ColorArray2D[x, y] = ColorArray1D[x + y * texture.Width];
+
+            ColorData = ColorArray2D;
+        }
+
+        public Sprite(SpriteBatch spriteBatch, Runner game)
+            : base(game, spriteBatch)
+        {
+            sourceTexture = null;
+        }
+
+        private void UpdateSourceRectangle()
+        {
+            int x = (int)(position.X - Origin.X);
+            int y = (int)(position.Y - Origin.Y);
+            SourceRectangle = new Rectangle(x, y, SourceTexture.Width, SourceTexture.Height);
+        }
+
+        private void UpdateCollisionRectangle()
+        {
+            collisionRectangle = sourceRectangle;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            UpdateSourceRectangle();
+            UpdateCollisionRectangle();
+
+            base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            SpriteBatch.Draw(SourceTexture, position, SourceRectangle, Color.White, Rotation, Origin, scale, SpriteEffects.None, 0.0f);
+            SpriteBatch.Draw(SourceTexture, position, null, Color.White, Rotation, Origin, Scale, SpriteEffects.None, 0.0f);
+
+            if (hitTexture != null)
+                SpriteBatch.Draw(hitTexture, position, null, Color.White, Rotation, Origin, Scale, SpriteEffects.None, 0.0f);
         }
     }
 }

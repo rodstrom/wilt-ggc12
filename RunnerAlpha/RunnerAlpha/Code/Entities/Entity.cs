@@ -10,8 +10,47 @@ namespace RunnerAlpha.Code.Entities
 {
     public class Entity : DrawableGameComponent
     {
+        public float Rotation
+        {
+            get;
+            set;
+        }
+
+        public float Scale
+        {
+            get;
+            set;
+        }
+
+        public Vector2 Origin
+        {
+            get;
+            set;
+        }
+
+
         public Vector2 position;
 
+        public Color[,] ColorData
+        {
+            get;
+            protected set;
+        }
+
+        protected Rectangle sourceRectangle;
+        protected Rectangle collisionRectangle;
+
+        public Rectangle SourceRectangle
+        {
+            get { return sourceRectangle; }
+            protected set { sourceRectangle = value; }
+        }
+
+        public Rectangle CollisionRectangle
+        {
+            get { return collisionRectangle; }
+            protected set { collisionRectangle = value; }
+        }
 
         public Boolean KillMe
         {
@@ -31,24 +70,6 @@ namespace RunnerAlpha.Code.Entities
             private set;
         }
 
-        public Vector2 Origin
-        {
-            get;
-            set;
-        }
-
-        public float Rotation
-        { 
-            get;
-            set;
-        }
-
-        //public Vector2 Position
-        //{
-        //    get { return position; }
-        //    set { position = value; }
-        //}
-
         public float Layer
         {
             get;
@@ -60,8 +81,7 @@ namespace RunnerAlpha.Code.Entities
         {
             Runner = game;
             SpriteBatch = spriteBatch;
-            position = Vector2.Zero;
-            Origin = Vector2.Zero;
+            Scale = 1f;
             Rotation = 0.0f;
             Layer = 1f;
             KillMe = false;
@@ -76,6 +96,5 @@ namespace RunnerAlpha.Code.Entities
         {
             base.Draw(gameTime);
         }
-
     }
 }

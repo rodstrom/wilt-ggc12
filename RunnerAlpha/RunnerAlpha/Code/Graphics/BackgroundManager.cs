@@ -132,7 +132,7 @@ namespace RunnerAlpha.Code.Graphics
             List<int> newBackgrounds = new List<int>();
             foreach (KeyValuePair<int, Background> background in backgroundList)
             {
-                if (background.Value.Rectangle.Right < playerPosX - Runner.WIDTH)
+                if (background.Value.SourceRectangle.Right < playerPosX - Runner.WIDTH)
                 {
                     background.Value.KillMe = true;
                     newBackgrounds.Add(background.Key);
@@ -151,7 +151,7 @@ namespace RunnerAlpha.Code.Graphics
             {
                 offset = rand.Next(100, 600);
             }
-            Vector2 position = new Vector2(getBackgroundsByLayer(layer).Last().Rectangle.Right + offset, Runner.HEIGHT);
+            Vector2 position = new Vector2(getBackgroundsByLayer(layer).Last().SourceRectangle.Right + offset, Runner.HEIGHT);
 
             string filename = "";
             bool keepTrying = true;

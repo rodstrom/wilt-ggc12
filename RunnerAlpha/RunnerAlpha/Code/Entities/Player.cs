@@ -42,12 +42,13 @@ namespace RunnerAlpha.Code.Entities
 
         protected override void LoadContent()
         {
-            AnimationStrip _runningAnim = new AnimationStrip();
+            AnimationStrip _runningAnim = new AnimationStrip();            
             Texture2D _tmpSource = Game.Content.Load<Texture2D>(@"Graphics\Spritesheets\RunningSheet");
+            Texture2D _tmpCol = Game.Content.Load<Texture2D>(@"Graphics\Collision\Spritesheets\RunningCollision");
 
-            for (int x = 0; x < 7; x++)
+            for (int x = 0; x < 14; x++)
             {
-                _runningAnim.AddFrame(new AnimationFrame(_tmpSource, new Rectangle(64 * x, 0, 64, 64)));
+                _runningAnim.AddFrame(new AnimationFrame(_tmpSource, new Rectangle(64 * x, 0, 64, 64), _tmpCol));
             }
             
             _runningAnim.TimeOnChange = 50;

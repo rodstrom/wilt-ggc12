@@ -31,7 +31,7 @@ namespace RunnerAlpha.Code.Graphics
         {
             SourceTexture = Game.Content.Load<Texture2D>(_filename);
             Origin = new Vector2(SourceRectangle.Left, SourceRectangle.Center.Y * 1.5f);
-            scale *= 2f;
+            Scale *= 2f;
         }
 
         public override void Update(GameTime gameTime)

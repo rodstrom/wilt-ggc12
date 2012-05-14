@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RunnerAlpha.Code.Graphics;
+using RunnerAlpha.Code.Physics;
 
 namespace RunnerAlpha.Code.Entities
 {
@@ -14,10 +15,14 @@ namespace RunnerAlpha.Code.Entities
         SpriteBatch spriteBatch;
         BackgroundManager backgroundManager;
 
+        Collision collision;
+
         public Player player;
         public LinkedList<Entity> entityList = new LinkedList<Entity>();
-        Dictionary<String, Rectangle[]> platformFiles = new Dictionary<String, Rectangle[]>();
         Random random = new Random();
+
+        Dictionary<String, String> platformFiles = new Dictionary<String, String>();
+        //Dictionary<String, Rectangle[]> platformFiles = new Dictionary<String, Rectangle[]>();
 
         public Platform platform = null;
         
@@ -29,6 +34,8 @@ namespace RunnerAlpha.Code.Entities
 
         public void Initialize()
         {
+            collision = new Collision();
+
             backgroundManager = new BackgroundManager(game, spriteBatch);
             backgroundManager.Initialize();
 
@@ -36,29 +43,17 @@ namespace RunnerAlpha.Code.Entities
             player.Initialize();
             entityList.AddLast(player);
 
-            platform = new Platform(game, spriteBatch, @"Graphics\Platforms\hus1", new Vector2(-100f, Runner.HEIGHT + 600f), new Rectangle(163, 216, 1030, 1000));
+            platform = new Platform(game, spriteBatch, @"Graphics\Platforms\hus3", @"Graphics\Collision\Platforms\hus3_collision", new Vector2(-100f, Runner.HEIGHT + 600f));
             platform.Initialize();
             entityList.AddLast(platform);
 
-            Rectangle[] r = new Rectangle[1];
-            r[0] = new Rectangle(163, 216, 1030, 1000);
-            platformFiles.Add(@"Graphics\Platforms\hus1", r);
-            r[0] = new Rectangle(0, 112, 1190, 1000);
-            platformFiles.Add(@"Graphics\Platforms\hus3", r);
-            r[0] = new Rectangle(0, 1331, 634, 1000);
-            platformFiles.Add(@"Graphics\Platforms\hus4", r);
-            r[0] = new Rectangle(120, 175, 990, 1000);
-            platformFiles.Add(@"Graphics\Platforms\hus6", r);
-            r = new Rectangle[2];
-            r[0] = new Rectangle(10, 480, 920, 1000);
-            r[1] = new Rectangle(685, 5, 1429, 20);
-            platformFiles.Add(@"Graphics\Platforms\hus2", r);
-            r[0] = new Rectangle(0, 1020, 1429, 1000);
-            r[1] = new Rectangle(280, 266, 1147, 20);
-            platformFiles.Add(@"Graphics\Platforms\hus5", r);
-            r[0] = new Rectangle(15, 495, 1125, 1000);
-            r[1] = new Rectangle(1125, 470, 2160, 1000);
-            platformFiles.Add(@"Graphics\Platforms\hus7", r);
+            //platformFiles.Add(@"Graphics\Platforms\hus1", @"Graphics\Collision\Platforms\Hus1_collision");
+            platformFiles.Add(@"Graphics\Platforms\hus3", @"Graphics\Collision\Platforms\hus3_collision");
+            platformFiles.Add(@"Graphics\Platforms\hus4", @"Graphics\Collision\Platforms\Hus4_collision");
+            platformFiles.Add(@"Graphics\Platforms\hus6", @"Graphics\Collision\Platforms\hus6_collision");
+            //platformFiles.Add(@"Graphics\Platforms\hus2", @"Graphics\Collision\Platforms\hus2_collision");
+            platformFiles.Add(@"Graphics\Platforms\hus5", @"Graphics\Collision\Platforms\hus5_collision");
+            //platformFiles.Add(@"Graphics\Platforms\hus7", @"Graphics\Collision\Platforms\hus7_collision");
 
             for (int i = 0; i < 5; i++)
             {
@@ -112,19 +107,13 @@ namespace RunnerAlpha.Code.Entities
         {
             int rand = random.Next(platformFiles.Count);
             string filename = platformFiles.ElementAt(rand).Key;
-            Rectangle[] rect = platformFiles.ElementAt(rand).Value;
+            string collisionname = platformFiles.ElementAt(rand).Value;
             Platform lastPlatform = (Platform)findLastOfType("Platform").Value;
-            float posX = lastPlatform.position.X + lastPlatform.Rectangle.Width + random.Next(100, 500);
+            float posX = lastPlatform.position.X + lastPlatform.SourceRectangle.Width + random.Next(100, 500);
             Vector2 position = new Vector2(posX, Runner.HEIGHT + 600f);
-            if (rect.Length == 1)
-            {
-                platform = new Platform(game, spriteBatch, filename, position, rect[0]);
-            }
-            else
-            {
-                platform = new Platform(game, spriteBatch, filename, position, rect);
-            }
+            platform = new Platform(game, spriteBatch, filename, collisionname, position);
             platform.Initialize();
+
             return platform;
         }
 
@@ -145,7 +134,7 @@ namespace RunnerAlpha.Code.Entities
             }
 
             Platform tempPlatform = (Platform)findFirstOfType("Platform").Next.Value;
-            if (tempPlatform.Rectangle.Right < player.position.X - Runner.WIDTH)
+            if (tempPlatform.SourceRectangle.Right < player.position.X - Runner.WIDTH)
             {
                 refreshPlatforms();
             }
@@ -169,97 +158,134 @@ namespace RunnerAlpha.Code.Entities
             spriteBatch.Draw(t, new Rectangle((int)player.position.X - Runner.WIDTH, Runner.HEIGHT, Runner.WIDTH * 4, 4), Color.Red); // Bottom
         }
 
+        //private void CollisionCheck()
+        //{
+        //    if (player.SourceRectangle.Bottom > Runner.HEIGHT)
+        //    {
+        //        player.lose = true;
+        //    }
+
+        //    player.falling = false;
+        //    foreach(Entity entity in entityList)
+        //    {
+        //        if (entity.GetType().Name == "Platform")
+        //        {
+        //            Platform tmpPlat = (Platform)entity;
+        //            if (!(player.Rectangle.Intersects(tmpPlat.HitRectangle)))
+        //            {
+        //                player.falling = true;
+        //            }
+        //            else if (player.Rectangle.Intersects(tmpPlat.HitRectangle))
+        //            {
+        //                SideCollided sides = GetSidesCollided(player.Rectangle, tmpPlat.HitRectangle);
+        //                if ((int)sides % 2 == (int)SideCollided.Top)
+        //                {
+        //                    player.position.Y = (tmpPlat.HitRectangle.Top - player.Rectangle.Height / 2) - 2;
+        //                    player.falling = false;
+        //                }
+        //                if (sides == SideCollided.Left)
+        //                {
+        //                    player.position.X = (tmpPlat.HitRectangle.Left - player.Rectangle.Width / 2) - 2;
+        //                    player.falling = true;
+        //                }
+        //                return;
+        //            }
+        //            if(tmpPlat.hitRect2Enabled)
+        //            {
+        //                if (!(player.Rectangle.Intersects(tmpPlat.HitRectangle2)))
+        //                {
+        //                    player.falling = true;
+        //                }
+        //                else if (player.Rectangle.Intersects(tmpPlat.HitRectangle2))
+        //                {
+        //                    SideCollided sides = GetSidesCollided(player.Rectangle, tmpPlat.HitRectangle2);
+        //                    if ((int)sides % 2 == (int)SideCollided.Top)
+        //                    {
+        //                        player.position.Y = (tmpPlat.HitRectangle2.Top - player.Rectangle.Height / 2) - 2;
+        //                        player.falling = false;
+        //                    }
+        //                    return;
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
+        //public enum SideCollided
+        //{
+        //    None = 0x00,
+        //    Top = 0x01,
+        //    Bottom = 0x02,
+        //    Left = 0x04,
+        //    Right = 0x08,
+        //}
+
         private void CollisionCheck()
         {
-            if (player.Rectangle.Bottom > Runner.HEIGHT)
+            if (player.SourceRectangle.Bottom > Runner.HEIGHT)
             {
                 player.lose = true;
             }
 
-            player.falling = false;
-            foreach(Entity entity in entityList)
+            foreach (Entity entity in entityList)
             {
                 if (entity.GetType().Name == "Platform")
                 {
                     Platform tmpPlat = (Platform)entity;
-                    if (!(player.Rectangle.Intersects(tmpPlat.HitRectangle)))
+                    if (!collision.BasicCheck(player, tmpPlat))
                     {
                         player.falling = true;
                     }
-                    else if (player.Rectangle.Intersects(tmpPlat.HitRectangle))
+                    else
                     {
-                        SideCollided sides = GetSidesCollided(player.Rectangle, tmpPlat.HitRectangle);
-                        if ((int)sides % 2 == (int)SideCollided.Top)
+                        Side sides = collision.GetSidesCollided(player, tmpPlat);
+
+                        //if ((int)sides % 2 == (int)Side.Top)
+                        if (sides == Side.Top)
                         {
-                            player.position.Y = (tmpPlat.HitRectangle.Top - player.Rectangle.Height / 2) - 2;
+                            player.position.Y = (tmpPlat.CollisionRectangle.Top - player.SourceRectangle.Height) - 2;
                             player.falling = false;
                         }
-                        if (sides == SideCollided.Left)
+                        if (sides == Side.Left)
                         {
-                            player.position.X = (tmpPlat.HitRectangle.Left - player.Rectangle.Width / 2) - 2;
+                            player.position.X = (tmpPlat.CollisionRectangle.Left - player.SourceRectangle.Width / 2) - 2;
                             player.falling = true;
                         }
                         return;
-                    }
-                    if(tmpPlat.hitRect2Enabled)
-                    {
-                        if (!(player.Rectangle.Intersects(tmpPlat.HitRectangle2)))
-                        {
-                            player.falling = true;
-                        }
-                        else if (player.Rectangle.Intersects(tmpPlat.HitRectangle2))
-                        {
-                            SideCollided sides = GetSidesCollided(player.Rectangle, tmpPlat.HitRectangle2);
-                            if ((int)sides % 2 == (int)SideCollided.Top)
-                            {
-                                player.position.Y = (tmpPlat.HitRectangle2.Top - player.Rectangle.Height / 2) - 2;
-                                player.falling = false;
-                            }
-                            return;
-                        }
                     }
                 }
             }
         }
 
-        public enum SideCollided
-        {
-            None = 0x00,
-            Top = 0x01,
-            Bottom = 0x02,
-            Left = 0x04,
-            Right = 0x08,
-        }
+        //public static SideCollided GetSidesCollided(Rectangle sourceRect, Rectangle targetRect)
+        //{
+        //    Vector2 targetCenter = new Vector2(targetRect.Center.X, targetRect.Center.Y);
+        //    Vector2 sourceCenter = new Vector2(sourceRect.Center.X, sourceRect.Center.Y);
 
-        public static SideCollided GetSidesCollided(Rectangle sourceRect, Rectangle targetRect)
-        {
-            Vector2 targetCenter = new Vector2(targetRect.Center.X, targetRect.Center.Y);
-            Vector2 sourceCenter = new Vector2(sourceRect.Center.X, sourceRect.Center.Y);
+        //    SideCollided returnVal = SideCollided.None;
 
-            SideCollided returnVal = SideCollided.None;
+        //    // test left side  
+        //    if (sourceRect.Right > targetRect.Left && sourceRect.Left < targetRect.Left &&
+        //        sourceRect.Bottom > targetRect.Top && sourceRect.Top < targetRect.Bottom)
+        //        returnVal = (returnVal | SideCollided.Left);
 
-            // test left side  
-            if (sourceRect.Right > targetRect.Left && sourceRect.Left < targetRect.Left &&
-                sourceRect.Bottom > targetRect.Top && sourceRect.Top < targetRect.Bottom)
-                returnVal = (returnVal | SideCollided.Left);
+        //    // test top side  
+        //    if (sourceRect.Center.X > targetRect.Left && sourceRect.Center.X < targetRect.Right &&
+        //        sourceRect.Bottom > targetRect.Top && sourceRect.Top - 500 < targetRect.Top)
+        //        returnVal = (returnVal | SideCollided.Top);
 
-            // test top side  
-            if (sourceRect.Center.X > targetRect.Left && sourceRect.Center.X < targetRect.Right &&
-                sourceRect.Bottom > targetRect.Top && sourceRect.Top - 500 < targetRect.Top)
-                returnVal = (returnVal | SideCollided.Top);
+        //    //// test right side  
+        //    //if (sourcePoint.X > centerLocation.X && sourcePoint.X < targetRect.Right &&
+        //    //    sourcePoint.Y > targetRect.Top && sourcePoint.Y < targetRect.Bottom)
+        //    //    returnVal = (returnVal | SideCollided.Right);
 
-            //// test right side  
-            //if (sourcePoint.X > centerLocation.X && sourcePoint.X < targetRect.Right &&
-            //    sourcePoint.Y > targetRect.Top && sourcePoint.Y < targetRect.Bottom)
-            //    returnVal = (returnVal | SideCollided.Right);
-
-            //// test bottom side  
-            //if (sourcePoint.X > targetRect.Left && sourcePoint.X < targetRect.Right &&
-            //    sourcePoint.Y > centerLocation.Y && sourcePoint.Y < targetRect.Bottom)
-            //    returnVal = (returnVal | SideCollided.Bottom);
+        //    //// test bottom side  
+        //    //if (sourcePoint.X > targetRect.Left && sourcePoint.X < targetRect.Right &&
+        //    //    sourcePoint.Y > centerLocation.Y && sourcePoint.Y < targetRect.Bottom)
+        //    //    returnVal = (returnVal | SideCollided.Bottom);
 
 
-            return returnVal;
-        } 
+        //    return returnVal;
+        //} 
     }
 }
