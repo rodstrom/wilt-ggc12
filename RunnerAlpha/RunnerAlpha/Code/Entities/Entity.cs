@@ -37,6 +37,12 @@ namespace RunnerAlpha.Code.Entities
             protected set;
         }
 
+        public int[] HeightMap
+        {
+            get;
+            protected set;
+        }
+
         protected Rectangle sourceRectangle;
         protected Rectangle collisionRectangle;
 

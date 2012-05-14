@@ -34,7 +34,7 @@ namespace RunnerAlpha.Code.Graphics
             }
         }
 
-        public void GetColorData(Texture2D texture)
+        protected void GetColorData(Texture2D texture)
         {
             Color[] ColorArray1D = new Color[texture.Width * texture.Height];
             texture.GetData(ColorArray1D);
@@ -45,6 +45,25 @@ namespace RunnerAlpha.Code.Graphics
                     ColorArray2D[x, y] = ColorArray1D[x + y * texture.Width];
 
             ColorData = ColorArray2D;
+        }
+
+        protected void GetHeight()
+        {
+            int[] height = new int[sourceTexture.Width];
+
+            for (int x = 0; x < SourceTexture.Width; x++)
+            {
+                for (int y = 0; y < SourceTexture.Height; y++)
+                {
+                    if (ColorData[x, y].R > 200)
+                    {
+                        height[x] = y;
+                        break;
+                    }
+                }
+            }
+
+            HeightMap = height;
         }
 
         public Sprite(SpriteBatch spriteBatch, Runner game)
@@ -77,8 +96,8 @@ namespace RunnerAlpha.Code.Graphics
         {
             SpriteBatch.Draw(SourceTexture, position, null, Color.White, Rotation, Origin, Scale, SpriteEffects.None, 0.0f);
 
-            if (hitTexture != null)
-                SpriteBatch.Draw(hitTexture, position, null, Color.White, Rotation, Origin, Scale, SpriteEffects.None, 0.0f);
+            //if (hitTexture != null)
+            //    SpriteBatch.Draw(hitTexture, position, null, Color.White, Rotation, Origin, Scale, SpriteEffects.None, 0.0f);
         }
     }
 }

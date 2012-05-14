@@ -25,6 +25,7 @@ namespace RunnerAlpha.Code.Entities
         int snapShotIndex = 0;
 
         public bool falling;
+        public bool running;
 
         public bool win = false;
         public bool lose = false;
@@ -117,12 +118,12 @@ namespace RunnerAlpha.Code.Entities
                 kinetics.Y = 0;
             }
 
-            if (input.MouseRelative.Y < 0 && !falling)
-            {
-                position.Y -= 10;
+            //if (input.MouseRelative.Y < 0 && !falling)
+            //{
+            //    position.Y -= 10;
 
-                //Runner.AudioManager.PlayEffect("Jump");
-            }
+            //    //Runner.AudioManager.PlayEffect("Jump");
+            //}
 
             input.Update();
             Move(gameTime);

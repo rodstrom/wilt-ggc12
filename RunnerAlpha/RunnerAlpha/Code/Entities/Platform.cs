@@ -75,6 +75,7 @@ namespace RunnerAlpha.Code.Entities
             hitTexture = Game.Content.Load<Texture2D>(collisionName);
             GetColorData(hitTexture);
             CollisionRectangle = SourceRectangle;
+            GetHeight();
 
             Origin = new Vector2(SourceTexture.Bounds.Left, SourceTexture.Bounds.Bottom);
         }

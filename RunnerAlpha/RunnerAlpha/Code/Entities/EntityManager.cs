@@ -109,7 +109,7 @@ namespace RunnerAlpha.Code.Entities
             string filename = platformFiles.ElementAt(rand).Key;
             string collisionname = platformFiles.ElementAt(rand).Value;
             Platform lastPlatform = (Platform)findLastOfType("Platform").Value;
-            float posX = lastPlatform.position.X + lastPlatform.SourceRectangle.Width + random.Next(100, 500);
+            float posX = lastPlatform.position.X + lastPlatform.SourceRectangle.Width + random.Next(200, 700);
             Vector2 position = new Vector2(posX, Runner.HEIGHT + 600f);
             platform = new Platform(game, spriteBatch, filename, collisionname, position);
             platform.Initialize();
@@ -241,11 +241,16 @@ namespace RunnerAlpha.Code.Entities
                         Side sides = collision.GetSidesCollided(player, tmpPlat);
 
                         //if ((int)sides % 2 == (int)Side.Top)
+                        //Är det en toppkollision bryts spelarens fall och placeras i samma höjd som kollisionsytan.
                         if (sides == Side.Top)
                         {
-                            player.position.Y = (tmpPlat.CollisionRectangle.Top - player.SourceRectangle.Height) - 2;
                             player.falling = false;
+                            player.position.Y = tmpPlat.SourceRectangle.Y + tmpPlat.HeightMap[
+                                (int)MathHelper.Clamp((player.SourceRectangle.X - tmpPlat.SourceRectangle.X),
+                                0, tmpPlat.SourceRectangle.Width)] - 
+                                    player.SourceRectangle.Height / 2;
                         }
+                        //Är det en vänsterkollision stoppas spelarens
                         if (sides == Side.Left)
                         {
                             player.position.X = (tmpPlat.CollisionRectangle.Left - player.SourceRectangle.Width / 2) - 2;
