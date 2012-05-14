@@ -30,11 +30,11 @@ namespace RunnerAlpha.Code.Graphics
             base.Update(gameTime);
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            position.X -= 1f;
+        //public override void Update(GameTime gameTime)
+        //{
+        //    position.X -= 1f;
 
-            base.Update(gameTime);
-        }
+        //    base.Update(gameTime);
+        //}
     }
 }

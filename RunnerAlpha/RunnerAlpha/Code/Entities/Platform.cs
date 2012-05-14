@@ -49,7 +49,6 @@ namespace RunnerAlpha.Code.Entities
             TEMPdata = new Color[HitRectangle.Width * HitRectangle.Height];
             for (int i = 0; i < TEMPdata.Length; ++i) TEMPdata[i] = Color.Red;
             TEMPrect.SetData(TEMPdata);
-
         }
 
         private Color[] TEMPdata;
