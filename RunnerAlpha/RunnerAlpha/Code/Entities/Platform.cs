@@ -78,10 +78,5 @@ namespace RunnerAlpha.Code.Entities
 
             Origin = new Vector2(SourceTexture.Bounds.Left, SourceTexture.Bounds.Bottom);
         }
-
-        public override void Draw(GameTime gameTime)
-        {
-            base.Draw(gameTime);
-        }
     }
 }

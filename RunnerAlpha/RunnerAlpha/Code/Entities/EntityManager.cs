@@ -243,7 +243,7 @@ namespace RunnerAlpha.Code.Entities
                         //if ((int)sides % 2 == (int)Side.Top)
                         if (sides == Side.Top)
                         {
-                            player.position.Y = (tmpPlat.CollisionRectangle.Top - player.SourceRectangle.Height) - 2;
+                            player.position.Y = (tmpPlat.CollisionRectangle.Top - player.SourceRectangle.Height / 2) - 2;
                             player.falling = false;
                         }
                         if (sides == Side.Left)
