@@ -121,8 +121,6 @@
     <Compile Include="Code\Input\InputFile.cs" />
     <Compile Include="Code\Physics\Collision.cs" />
     <Compile Include="Code\Physics\KineticVector.cs" />
-    <Compile Include="Code\Physics\ObjectTranslation.cs" />
-    <Compile Include="Code\Physics\PhysicsManager.cs" />
     <Compile Include="Code\States\HighScoreState.cs" />
     <Compile Include="Code\States\PlayState.cs" />
     <Compile Include="Code\States\State.cs" />
